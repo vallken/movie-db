@@ -34,7 +34,7 @@ const Page = async ({ params }) => {
             {result.data.title}
           </h1>
           <ul>
-            {result.data.details.map((detail) => {
+            {result.data.details?.map((detail) => {
               return (
                 <Link
                   href={detail.link}

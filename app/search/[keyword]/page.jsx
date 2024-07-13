@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
 import { Search } from "@/app/components/NavBar/Search";
 import Pagination from "@/app/components/utilities/Pagination";
+import LoadingSpinner from "@/app/loading";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
@@ -11,7 +12,6 @@ const Page = ({ params }) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const { keyword } = params;
 
   useEffect(() => {
@@ -27,13 +27,13 @@ const Page = ({ params }) => {
         const result = await response.json();
 
         if (!response.ok || result.data.length === 0) {
-          setError('Movie not found');
+          setError("Movie not found");
           setPosts([]);
         } else {
           setPosts(result);
         }
       } catch (err) {
-        setError('Error fetching movies');
+        setError("Error fetching movies");
         setPosts([]);
       }
 
@@ -44,12 +44,12 @@ const Page = ({ params }) => {
       fetchMovies();
     } else {
       setLoading(false);
-      setError('Keyword is required');
+      setError("Keyword is required");
     }
   }, [keyword, page]);
 
   if (loading) {
-    return <h1 className="text-3xl font-bold text-color-primary">Loading...</h1>;
+    <LoadingSpinner />;
   }
 
   if (error) {
@@ -67,13 +67,23 @@ const Page = ({ params }) => {
               key={movie.title}
               className="cursor-pointer text-color-primary hover:text-color-accent transition-all"
             >
-              <Image
-                src={`https:${movie.image}`}
-                alt={movie.title}
-                width={200}
-                height={200}
-                className="w-full max-h-64 shadow-xl"
-              />
+              {movie.image ? (
+                <Image
+                  src={`https:${movie.image}`}
+                  alt={movie.title}
+                  width={200}
+                  height={200}
+                  className="w-full max-h-64 shadow-xl"
+                />
+              ) : (
+                <Image
+                  src={'https://placehold.co/400x600.png'}
+                  alt={movie.title}
+                  width={200}
+                  height={200}
+                  className="w-full max-h-64 shadow-xl"
+                />
+              )}
               <h3 className="font-bold md:text-xl text:md p-4">
                 {movie.title}
               </h3>
@@ -82,7 +92,7 @@ const Page = ({ params }) => {
         })}
       </div>
       <div className="flex justify-center items-center gap-2">
-      <Pagination page={page} setPage={setPage} lastpage={posts.totalPages} />
+        <Pagination page={page} setPage={setPage} lastpage={posts.totalPages} />
       </div>
     </div>
   );
