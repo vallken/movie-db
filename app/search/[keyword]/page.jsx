@@ -60,7 +60,7 @@ const Page = ({ params }) => {
     <div className="bg-gray-200 p-2">
       <Search />
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
-        {posts.data.map((movie) => {
+        {posts.data?.map((movie) => {
           return (
             <Link
               href={`/movie/${movie.title}`}
