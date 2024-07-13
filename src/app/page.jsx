@@ -1,7 +1,5 @@
-
-
-import PostsPage from "./components/Fetching/MoviePostPage.jsx";
-import { Search } from "./components/NavBar/Search.jsx";
+import PostsPage from "@/src/components/PostPage/MoviePostPage.jsx"
+import { Search } from "../components/NavBar/Search.jsx";
 
 export default async function Home() {
 

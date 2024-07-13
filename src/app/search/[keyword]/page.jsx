@@ -1,8 +1,8 @@
 "use client";
 
-import { Search } from "@/app/components/NavBar/Search";
-import Pagination from "@/app/components/utilities/Pagination";
-import LoadingSpinner from "@/app/loading";
+import { Search } from "@/src/components/NavBar/Search";
+import Pagination from "@/src/lib/utilities/Pagination";
+import LoadingSpinner from "@/src/app/loading";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";

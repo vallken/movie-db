@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Pagination from "../utilities/Pagination";
+import Pagination from "../../lib/utilities/Pagination";
 
-export default function PostsPage() {
+const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -41,8 +41,9 @@ export default function PostsPage() {
         <h1 className="text-3xl font-bold text-color-primary">{error}</h1>
       ) : (
         <>
-          <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2">
+          <div className="grid md:grid-cols-5 grid-cols-3 gap-4 px-2">
             {posts.map((movie) => (
+              <div>
               <Link
                 href={`/movie/${movie.title}`}
                 key={movie.title}
@@ -53,12 +54,13 @@ export default function PostsPage() {
                   alt={movie.title}
                   width={200}
                   height={200}
-                  className="w-full max-h-64 shadow-xl"
+                  className="w-full max-h-64 shadow-xl object-cover"
                 />
                 <h3 className="font-bold md:text-xl text:md p-4">
                   {movie.title}
                 </h3>
               </Link>
+              </div>
             ))}
           </div>
           <div className="flex justify-center items-center gap-2">
@@ -69,3 +71,5 @@ export default function PostsPage() {
     </div>
   );
 }
+
+export default PostsPage

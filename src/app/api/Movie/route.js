@@ -1,4 +1,4 @@
-import { dbConnect } from "@/lib/mongodb";
+import { dbConnect } from "@/src/lib/mongodb";
 import Movie from "@/model/movie";
 import { NextResponse } from "next/server";
 
