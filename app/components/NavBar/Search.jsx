@@ -10,12 +10,12 @@ export const Search = () => {
     const router = useRouter()
 
     const handleSearch = async (e) => {
-      if(e.key === "Enter"){
+      if(e.key === "Enter" || e.type === "click") {
       e.preventDefault();
       const searchValue = searchRef.current.value;
       if (searchValue) {
         router.push(`../../search/${searchValue}`);
-      }
+      } else { return}
     }
     };
   return (

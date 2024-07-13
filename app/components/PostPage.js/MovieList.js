@@ -1,7 +1,12 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import {useState, useEffect, React} from "react";
 
 const MovieList = ({ api }) => {
+
+
   return (
     <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2">
       {api.map((movie) => {

@@ -6,7 +6,7 @@ import React from "react";
 const Page = async ({ params }) => {
   const { keyword } = params;
   const response = await fetch(
-    `${process.env.MOVIE_API_URL}/api/MovieData/${keyword}`
+    `${process.env.NEXT_PUBLIC_MOVIE_API_URL}/api/MovieData/${keyword}`
   );
   const result = await response.json();
 
