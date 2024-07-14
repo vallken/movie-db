@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.NEXT_PUBLIC_API_BASE_URL;
+const MONGODB_URI = process.env.NEXT_PUBLIC_MOVIE_DB;
 
 global.mongoose = {
   conn: null,

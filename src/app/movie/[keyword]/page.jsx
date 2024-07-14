@@ -1,3 +1,4 @@
+
 import { Search } from "@/src/components/NavBar/Search";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import React from "react";
 const Page = async ({ params }) => {
   const { keyword } = params;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_MOVIE_API_URL}/api/MovieData/${keyword}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/MovieData/${keyword}`
   );
   const result = await response.json();
 

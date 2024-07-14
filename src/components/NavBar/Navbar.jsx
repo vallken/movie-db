@@ -10,7 +10,7 @@ const NavBar = () => {
 
       <ul className="flex gap-4">
         <li>
-          <Link href="/">Movie</Link>
+          <Link href="/movie">Movie</Link>
         </li>
         <li>
           <Link href="/anime">Anime</Link>

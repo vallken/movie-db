@@ -1,18 +1,6 @@
-import PostsPage from "@/src/components/PostPage/MoviePostPage.jsx"
-import { Search } from "../components/NavBar/Search.jsx";
+import { redirect } from 'next/navigation';
 
-export default async function Home() {
-
-
-  return (
-    <div className="p-2 bg-gray-200">
-      <h1>Search Movie</h1>
-      <div>
-       <Search />
-        <div className="mt-4">
-       <PostsPage />
-        </div>
-      </div>
-    </div>
-  );
+export default function Home() {
+  redirect('/movie');
+  return null;
 }

@@ -1,14 +1,13 @@
-import { searchMovie } from '@/src/lib/api-lib'
+import { getMovies } from '@/src/lib/api-lib'
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search } from '@/src/components/NavBar/Search';
 import Pagination from '@/src/lib/utilities/Pagination';
 
-export default async function Page({ params, searchParams }) {
-  const keyword = params.keyword;
-  const page = searchParams.page || 1;
+export default async function Page({ searchParams }) {
+  const page = parseInt(searchParams.page, 10) || 1
 
-  const result = await searchMovie(keyword, page);
+  const result = await getMovies(page)
 
   if (result.error) {
     return <h1 className="text-3xl font-bold text-color-primary">{result.error}</h1>;
@@ -46,7 +45,7 @@ export default async function Page({ params, searchParams }) {
         })}
       </div>
       <div className="flex justify-center items-center gap-2">
-        <Pagination page={page} totalPages={totalPages} keyword={keyword} />
+        <Pagination page={page} totalPages={totalPages}/>
       </div>
     </div>
   );

@@ -1,38 +1,37 @@
 "use client";
 
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
-const { useRef } = require("react");
-
-
 export const Search = () => {
-    const searchRef = useRef();
-    const router = useRouter()
+    const searchRef = useRef(null);
+    const router = useRouter();
 
     const handleSearch = async (e) => {
-      if(e.key === "Enter" || e.type === "click") {
-      e.preventDefault();
-      const searchValue = searchRef.current.value;
-      if (searchValue) {
-        router.push(`../../search/${searchValue}`);
-      } else { return}
-    }
+        if (e.key === "Enter" || e.type === "click") {
+            e.preventDefault();
+            const searchValue = searchRef.current?.value;
+            if (searchValue) {
+                router.push(`../../search/${searchValue}`);
+            }
+        }
     };
-  return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search"
-        className="text-black border rounded-md"
-        ref={searchRef}
-        onKeyDown={handleSearch}
-      />
-      <button
-        className="rounded-md bg-blue-500 text-white text-center mx-1"
-        onClick={handleSearch} 
-      >
-        Search
-      </button>
-    </div>
-  );
+
+    return (
+        <div className="flex items-center space-x-2">
+            <input
+                type="text"
+                placeholder="Search"
+                className="px-4 py-2 text-black border rounded-md focus:outline-none focus:border-blue-500"
+                ref={searchRef}
+                onKeyDown={handleSearch}
+            />
+            <button
+                className="px-4 py-2 rounded-md bg-blue-500 text-white text-center hover:bg-blue-600 focus:outline-none"
+                onClick={handleSearch}
+            >
+                Search
+            </button>
+        </div>
+    );
 };
