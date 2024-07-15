@@ -1,16 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
 import { getAnimeData } from "@/src/lib/api-lib";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import LoadingSpinner from "../../loading";
 
-const Page = async () => {
+const Page = ({ params }) => {
   const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  const [anime, setAnime] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const response = await getAnimeData(id)
-  const anime = await response.data;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const id = searchParams.get("id") || params.id;
+        const response = await getAnimeData(id);
+        setAnime(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [searchParams, params.id]);
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <div>Error: {error}</div>;
+  if (!anime) return <div>No anime data found</div>;
 
   const defaultImage = "https://placehold.co/400x600.png";
 
