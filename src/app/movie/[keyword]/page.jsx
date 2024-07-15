@@ -1,7 +1,8 @@
 import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
+import LoadingSpinner from "../../loading";
 
 const Page = async ({ params }) => {
   const { keyword } = params;
@@ -27,6 +28,7 @@ const Page = async ({ params }) => {
   return (
     <div className="bg-gray-100 min-h-screen p-4">
       <SearchMovieComponent />
+      <Suspense fallback={<LoadingSpinner />}>
       <div className="max-w-5xl mx-auto my-4 bg-white p-6 shadow-md rounded-lg">
         <div className="flex flex-col md:flex-row items-start md:items-center ">
           <div className="w-full md:w-1/3 mb-4 md:mb-0">
@@ -57,6 +59,7 @@ const Page = async ({ params }) => {
           </div>
         </div>
       </div>
+      </Suspense>
     </div>
   );
 };

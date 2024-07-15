@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SearchMovieComponent } from '@/src/components/NavBar/SearchMovieComponent'
 import Pagination from '@/src/lib/utilities/Pagination';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/src/app/loading';
 
 export default async function Page({ params, searchParams }) {
   const keyword = params.keyword;
@@ -20,6 +22,7 @@ export default async function Page({ params, searchParams }) {
   return (
     <div className="bg-gray-200 p-2">
       <SearchMovieComponent />
+      <Suspense fallback={<LoadingSpinner />}>
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
         {posts.map((movie) => {
           const defaultImage = movie.image
@@ -48,6 +51,7 @@ export default async function Page({ params, searchParams }) {
       <div className="flex justify-center items-center gap-2">
         <Pagination page={page} totalPages={totalPages} keyword={keyword} />
       </div>
+      </Suspense>
     </div>
   );
 }
