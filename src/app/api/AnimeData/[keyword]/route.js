@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { dbConnectMovie} from "@/src/lib/mongodb";
-import getMovieModel from "@/model/movie";
+import { dbConnectAnime } from "@/src/lib/mongodb";
+import getAnimeModel from "@/model/anime";
 
 export async function GET(req, { params }) {
-  await dbConnectMovie();
+  await dbConnectAnime();
+  const AnimeModel = await getAnimeModel()
 
   try {
     const { keyword } = params;
@@ -14,8 +15,8 @@ export async function GET(req, { params }) {
         { status: 400 }
       );
     }
-    const Movie = await getMovieModel()
-    const movie = await Movie.findOne({ title: keyword })
+
+    const movie = await AnimeModel.findOne({ title: keyword.replace() })
       .select("-_id -__v")
       .lean();
 

@@ -14,17 +14,19 @@ export default function Pagination({ page, totalPages }) {
     scrollTop();
   };
 
-  const handleNextPage = () => {
-    if (page < totalPages) {
-      handlePageChange(page + 1);
-    }
-  };
+const handleNextPage = () => {
+  const nextPage = parseInt(page, 10) + 1; 
+  if (nextPage <= totalPages) {
+    handlePageChange(nextPage);
+  }
+};
 
-  const handlePreviousPage = () => {
-    if (page > 1) {
-      handlePageChange(page - 1);
-    }
-  };
+const handlePreviousPage = () => {
+  const previousPage = parseInt(page, 10) - 1;
+  if (previousPage >= 1) {
+    handlePageChange(previousPage);
+  }
+};
 
   return (
     <div className="flex justify-center items-center gap-4 my-4">

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
-export const Search = () => {
+export const SearchAnimeComponent = () => {
     const searchRef = useRef(null);
     const router = useRouter();
 
@@ -12,7 +12,7 @@ export const Search = () => {
             e.preventDefault();
             const searchValue = searchRef.current?.value;
             if (searchValue) {
-                router.push(`../../search/${searchValue}`);
+                router.push(`../../anime/search/${searchValue}`);
             }
         }
     };

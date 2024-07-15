@@ -1,11 +1,12 @@
-import { dbConnectMovie } from "@/src/lib/mongodb";
-import getMovieModel from "@/model/movie";
+import { dbConnectAnime } from "@/src/lib/mongodb";
+import getAnimeModel from "@/model/anime";
 import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
   try {
-    await dbConnectMovie();
-    const Movie = await getMovieModel()
+    await dbConnectAnime();
+    const AnimeModel = await getAnimeModel()
+
     // Extract the page query parameter
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
@@ -13,12 +14,12 @@ export const GET = async (req) => {
     const limit = 20;
     const skip = (page - 1) * limit;
 
-    const totalMovies = await Movie.countDocuments({ title: { $exists: true } });
+    const totalMovies = await AnimeModel.countDocuments({ title: { $exists: true } });
     const totalPages = Math.ceil(totalMovies / limit);
 
-    const links = await Movie.find(
+    const links = await AnimeModel.find(
       {},
-      { title: 1, "details.provider": 1, "details.link": 1, image: 1 }
+      { title: 1, images: 1 }
     )
       .select("-_id -__v")
       .skip(skip)

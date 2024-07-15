@@ -1,5 +1,4 @@
-
-import { Search } from "@/src/components/NavBar/Search";
+import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -7,7 +6,10 @@ import React from "react";
 const Page = async ({ params }) => {
   const { keyword } = params;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/MovieData/${keyword}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/MovieData/${keyword.replace(
+      /-/g,
+      "%20"
+    )}`
   );
   const result = await response.json();
 
@@ -20,11 +22,11 @@ const Page = async ({ params }) => {
   }
 
   const movie = result.data;
-  const defaultImage = "https://placehold.co/400x600.png"; // Path to default image
+  const defaultImage = "https://placehold.co/400x600.png";
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <Search />
+      <SearchMovieComponent />
       <div className="max-w-5xl mx-auto my-4 bg-white p-6 shadow-md rounded-lg">
         <div className="flex flex-col md:flex-row items-start md:items-center ">
           <div className="w-full md:w-1/3 mb-4 md:mb-0">

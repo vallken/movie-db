@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { dbConnectMovie } from "@/src/lib/mongodb";
-import getMovieModel from "@/model/movie";
+import { dbConnectAnime } from "@/src/lib/mongodb";
+import getAnimeModel from "@/model/anime";
 export async function GET(req, { params }) {
-  await dbConnectMovie();
-  const Movie = await getMovieModel()
+  await dbConnectAnime();
+  const AnimeModel = await getAnimeModel()
 
   try {
     const { keyword } = params;
@@ -20,10 +20,10 @@ export async function GET(req, { params }) {
       );
     }
     const titleRegex = new RegExp(keyword, "i");
-    const totalMovies = await Movie.countDocuments({
+    const totalMovies = await AnimeModel.countDocuments({
       title: { $regex: titleRegex },
     });
-    const movies = await Movie.find({ title: { $regex: titleRegex } })
+    const movies = await AnimeModel.find({ title: { $regex: titleRegex } })
       .select("-_id -__v")
       .skip(skip)
       .limit(limit)
