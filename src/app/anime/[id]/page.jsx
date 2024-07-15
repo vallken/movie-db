@@ -9,14 +9,8 @@ const Page = async () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/AnimeData/${id}`,
-    {
-      cache: "no-store",
-    }
-  );
-  const result = await response.json();
-  const anime = await result.data;
+  const response = await getAnimeData(id)
+  const anime = await response.data;
 
   const defaultImage = "https://placehold.co/400x600.png";
 
