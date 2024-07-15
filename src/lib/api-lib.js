@@ -14,6 +14,22 @@ export async function getMovies(page) {
     return { error: error.message };
   }
 }
+
+export const getAnimeData = async (id) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/AnimeData/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export async function getAnime(page) {
   try {
     const response = await fetch(
@@ -31,7 +47,7 @@ export async function getAnime(page) {
   }
 }
 
-export const searchMovie= async(keyword, page) => {
+export const searchMovie = async (keyword, page) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/searchMovie/${keyword}?page=${page}`,
@@ -46,8 +62,8 @@ export const searchMovie= async(keyword, page) => {
   } catch (error) {
     return { error: error.message };
   }
-}
-export const searchAnime = async(keyword, page) => {
+};
+export const searchAnime = async (keyword, page) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/searchAnime/${keyword}?page=${page}`,
@@ -62,4 +78,4 @@ export const searchAnime = async(keyword, page) => {
   } catch (error) {
     return { error: error.message };
   }
-}
+};

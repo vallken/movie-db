@@ -7,16 +7,16 @@ export async function GET(req, { params }) {
   const AnimeModel = await getAnimeModel()
 
   try {
-    const { keyword } = params;
+    const id = parseInt(params.id);
 
-    if (!keyword) {
+    if (!id) {
       return NextResponse.json(
-        { success: false, message: "Keyword is required" },
+        { success: false, message: "id is required" },
         { status: 400 }
       );
     }
 
-    const movie = await AnimeModel.findOne({ title: keyword.replace() })
+    const movie = await AnimeModel.findOne({ id: id })
       .select("-_id -__v")
       .lean();
 

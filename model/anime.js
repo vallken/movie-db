@@ -26,6 +26,7 @@ const downloadLinkSchema = new Schema(
     rating: { type: String, required: true },
     score: { type: Number, required: true },
     updatedAt: { type: Date, default: Date.now },
+    id: {type: Number, required: true}
   },
   {
     timestamps: true,

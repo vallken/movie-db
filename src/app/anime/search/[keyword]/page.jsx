@@ -27,8 +27,8 @@ export default async function Page({ params, searchParams }) {
             : "https://placehold.co/400x600.png";
           return (
             <Link
-              href={`/anime/${anime.title.replace(/ /g, '-')}`}
-              key={anime.title}
+            href={`/anime/${encodeURIComponent(anime.title.replace(/ /g, '-'))}?id=${anime.id}`}
+            key={anime.id}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >
               <Image
