@@ -12,7 +12,7 @@ export const SearchMovieComponent = () => {
             e.preventDefault();
             const searchValue = searchRef.current?.value;
             if (searchValue) {
-                router.push(`../../search/${searchValue}`);
+                router.push(`../../movie/search/${searchValue}`);
             }
         }
     };
