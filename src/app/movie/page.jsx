@@ -28,7 +28,7 @@ export default async function Page({ searchParams }) {
             : "https://placehold.co/400x600.png";
           return (
             <Link
-              href={`/movie/${movie.title.replace(/ /g, "-")}`}
+              href={`/movie/${movie.title.replace(/ /g, "-")}?id=${movie.id}`}
               key={movie.title}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >

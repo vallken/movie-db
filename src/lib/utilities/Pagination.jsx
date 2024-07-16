@@ -24,7 +24,7 @@ const handleNextPage = () => {
 const handlePreviousPage = () => {
   const previousPage = parseInt(page, 10) - 1;
   if (previousPage >= 1) {
-    handlePageChange(previousPage);
+    router.push(`?page=${previousPage}`);
   }
 };
 

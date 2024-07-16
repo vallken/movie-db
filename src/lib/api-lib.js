@@ -1,3 +1,15 @@
+export async function getMovieData(id) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/MovieData/${id}`
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 export async function getMovies(page) {
   try {
     const response = await fetch(

@@ -7,6 +7,7 @@ export async function GET(req, { params }) {
   const AnimeModel = await getAnimeModel()
 
   try {
+    console.log({params});
     const id = parseInt(params.id);
 
     if (!id) {

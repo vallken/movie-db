@@ -4,18 +4,18 @@ import getMovieModel from "@/model/movie";
 
 export async function GET(req, { params }) {
   await dbConnectMovie();
+  const Movies = await getMovieModel()
+  console.log({params});
 
   try {
-    const { keyword } = params;
-
-    if (!keyword) {
+    const id = parseInt(params.keyword)
+    if (!id) {
       return NextResponse.json(
-        { success: false, message: "Keyword is required" },
+        { success: false, message: "id is required" },
         { status: 400 }
       );
     }
-    const Movie = await getMovieModel()
-    const movie = await Movie.findOne({ title: keyword })
+    const movie = await Movies.findOne({ id: id })
       .select("-_id -__v")
       .lean();
 

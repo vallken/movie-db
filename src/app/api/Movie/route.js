@@ -18,7 +18,7 @@ export const GET = async (req) => {
 
     const links = await Movie.find(
       {},
-      { title: 1, "details.provider": 1, "details.link": 1, image: 1 }
+      { title: 1, "details.provider": 1, "details.link": 1, image: 1, id: 1 }
     )
       .select("-_id -__v")
       .skip(skip)
