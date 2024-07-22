@@ -1,9 +1,20 @@
 "use client";
-
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function Pagination({ page, totalPages }) {
   const router = useRouter();
+  const [currentPage, setCurrentPage] = useState(parseInt(page, 10));
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -11,47 +22,79 @@ export default function Pagination({ page, totalPages }) {
 
   const handlePageChange = (newPage) => {
     router.push(`?page=${newPage}`);
+    setCurrentPage(newPage);
     scrollTop();
   };
 
-const handleNextPage = () => {
-  const nextPage = parseInt(page, 10) + 1; 
-  if (nextPage <= totalPages) {
-    handlePageChange(nextPage);
-  }
-};
+  const generatePageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = isMobile ? 3 : 5;
 
-const handlePreviousPage = () => {
-  const previousPage = parseInt(page, 10) - 1;
-  if (previousPage >= 1) {
-    router.push(`?page=${previousPage}`);
-  }
-};
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        for (let i = 1; i <= maxVisiblePages - 1; i++) {
+          pageNumbers.push(i);
+        }
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - 1) {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = totalPages - (maxVisiblePages - 2); i <= totalPages; i++) {
+          pageNumbers.push(i);
+        }
+      } else {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        pageNumbers.push(currentPage);
+        if (!isMobile) {
+          pageNumbers.push(currentPage + 1);
+        }
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
+    }
+
+    return pageNumbers;
+  };
 
   return (
-    <div className="flex justify-center items-center gap-4 my-4">
+    <div className="join flex flex-wrap justify-center items-center my-4 gap-1">
       <button
-        className={`py-2 px-4 bg-indigo-600 text-white rounded-md transition-all ${
-          page <= 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-indigo-700"
+        className={`join-item btn btn-sm sm:btn-md btn-primary text-white rounded-md transition-all ${
+          currentPage <= 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-indigo-700"
         }`}
-        onClick={handlePreviousPage}
-        disabled={page === 1}
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
       >
-        Previous
+        «
       </button>
-      <p>
-        {page} of {totalPages}
-      </p>
+      {generatePageNumbers().map((pageNum, index) => (
+        <button
+          key={index}
+          className={`join-item btn btn-sm sm:btn-md ${pageNum === currentPage ? 'btn-active' : ''} ${
+            pageNum === '...' ? 'btn-disabled' : ''
+          }`}
+          onClick={() => pageNum !== '...' && handlePageChange(pageNum)}
+          disabled={pageNum === '...'}
+        >
+          {pageNum}
+        </button>
+      ))}
       <button
-        className={`py-2 px-4 bg-indigo-600 text-white rounded-md transition-all ${
-          page >= totalPages
+        className={`join-item btn btn-sm sm:btn-md btn-primary text-white rounded-md transition-all ${
+          currentPage >= totalPages
             ? "opacity-50 cursor-not-allowed"
             : "hover:bg-indigo-700"
         }`}
-        onClick={handleNextPage}
-        disabled={page === totalPages}
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
       >
-        Next
+        »
       </button>
     </div>
   );

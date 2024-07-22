@@ -1,14 +1,14 @@
-import { getMovies } from "@/src/lib/api-lib";
+import { getDramas } from "@/src/lib/api-lib";
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/src/lib/utilities/Pagination";
-import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
+import { SearchDramaComponent } from "@/src/components/NavBar/SearchDramaComponent";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
 
 export default async function Page({ searchParams }) {
   const page = parseInt(searchParams.page, 10) || 1;
 
-  const result = await getMovies(page);
+  const result = await getDramas(page);
 
   if (result.error) {
     return (
@@ -20,16 +20,16 @@ export default async function Page({ searchParams }) {
   const totalPages = result.totalPages;
 
   return (
-    <div className="bg-gray-200 dark:bg-gray-800 p-2">
-      <SearchMovieComponent />
+    <div className="bg-gray-200 p-2">
+      <SearchDramaComponent />
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
         {posts?.map((movie) => {
           const defaultImage = movie.image
-            ? `https:${movie.image}`
+            ? `${movie.image}`
             : "https://placehold.co/400x600.png";
           return (
             <Link
-              href={`/movie/${cleanUrl(movie.title)}?id=${movie.id}`}
+              href={`/drama/${cleanUrl(movie.title)}?id=${movie.id}`}
               key={movie.title}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >
@@ -40,8 +40,8 @@ export default async function Page({ searchParams }) {
                 height={200}
                 className="w-full max-h-64 shadow-xl transform transition-transform duration-500 hover:scale-105"
               />
-              <h3 className="font-bold md:text-xl dark:text-gray-200 text-lg p-4">
-                {movie.title}
+              <h3 className="font-bold md:text-xl text-lg p-4">
+                {movie.title.split('Season')[0].trim()}
               </h3>
             </Link>
           );

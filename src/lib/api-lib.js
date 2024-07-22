@@ -1,7 +1,9 @@
+//Movies
+
 export async function getMovieData(id) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/MovieData/${id}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/MovieData/${id}`
     );
     const result = await response.json();
     return result;
@@ -9,6 +11,23 @@ export async function getMovieData(id) {
     console.log(error.message);
   }
 }
+
+export const searchMovie = async (keyword, page) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/searchMovie/${keyword}?page=${page}`,
+      {
+        cache: "no-store",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return await response.json();
+  } catch (error) {
+    return { error: error.message };
+  }
+};
 
 export async function getMovies(page) {
   try {
@@ -27,10 +46,62 @@ export async function getMovies(page) {
   }
 }
 
+//Drama
+
+export async function getDramaData(id) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/DramaData/${id}`
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const searchDrama = async (keyword, page) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/searchDrama/${keyword}?page=${page}`,
+      {
+        cache: "no-store",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return await response.json();
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+export async function getDramas(page) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/?page=${page}`,
+      {
+        cache: "no-store",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return await response.json();
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+
+
+
+//Anime
+
 export const getAnimeData = async (id) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/AnimeData/${id}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/AnimeData/${id}`,
       {
         cache: "no-store",
       }
@@ -59,10 +130,10 @@ export async function getAnime(page) {
   }
 }
 
-export const searchMovie = async (keyword, page) => {
+export const searchAnime = async (Keyword, page) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/searchMovie/${keyword}?page=${page}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/searchAnime/${encodeURIComponent(Keyword)}?page=${page}`,
       {
         cache: "no-store",
       }
@@ -72,22 +143,6 @@ export const searchMovie = async (keyword, page) => {
     }
     return await response.json();
   } catch (error) {
-    return { error: error.message };
-  }
-};
-export const searchAnime = async (keyword, page) => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/searchAnime/${keyword}?page=${page}`,
-      {
-        cache: "no-store",
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    return await response.json();
-  } catch (error) {
-    return { error: error.message };
+    console.error('Error:', error);
   }
 };

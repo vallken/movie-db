@@ -12,7 +12,7 @@ export const SearchMovieComponent = () => {
             e.preventDefault();
             const searchValue = searchRef.current?.value;
             if (searchValue) {
-                router.push(`../../movie/search/${searchValue}`);
+                router.push(`../../movie/search/${encodeURIComponent(searchValue)}`);
             }
         }
     };
@@ -22,7 +22,7 @@ export const SearchMovieComponent = () => {
             <input
                 type="text"
                 placeholder="Search Movie..."
-                className="px-4 py-2 text-black border rounded-md focus:outline-none focus:border-blue-500"
+                className="input input-bordered w-full max-w-xs px-4 py-2  border rounded-md focus:outline-none focus:border-blue-500"
                 ref={searchRef}
                 onKeyDown={handleSearch}
             />

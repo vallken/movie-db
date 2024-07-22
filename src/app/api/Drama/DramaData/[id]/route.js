@@ -1,23 +1,20 @@
 import { NextResponse } from "next/server";
-import { dbConnectAnime } from "@/src/lib/mongodb";
-import getAnimeModel from "@/model/anime";
+import { dbConnect} from "@/src/lib/mongodb";
+import Movies from "@/model/drama";
 
 export async function GET(req, { params }) {
-  await dbConnectAnime();
-  const AnimeModel = await getAnimeModel()
+  await dbConnect();
+  console.log({params});
 
   try {
-    console.log({params});
-    const id = parseInt(params.id);
-
+    const id = parseInt(params.id)
     if (!id) {
       return NextResponse.json(
         { success: false, message: "id is required" },
         { status: 400 }
       );
     }
-
-    const movie = await AnimeModel.findOne({ id: id })
+    const movie = await Movies.findOne({ id: id })
       .select("-_id -__v")
       .lean();
 

@@ -1,5 +1,4 @@
-import mongoose, { Schema, model, models } from 'mongoose';
-import { dbConnectAnime } from "@/src/lib/mongodb";
+import mongoose, { Schema } from 'mongoose';
 
 const linkSchema = new Schema({
   provider: { type: String, required: true },
@@ -33,12 +32,4 @@ const downloadLinkSchema = new Schema(
   }
 );
 
-const getAnimeModel = async() => {
-  const conn = await dbConnectAnime()
-  if(conn.models.downloadlinks){
-    return conn.models.downloadlinks;
-  } 
-  return conn.model('downloadlinks', downloadLinkSchema)
-}
-
-export default getAnimeModel
+export default mongoose.models.animelinks || mongoose.model('animelinks', downloadLinkSchema)

@@ -1,5 +1,4 @@
-import { dbConnectMovie } from "@/src/lib/mongodb";
-import mongoose, { Schema, Document, model, models } from "mongoose";
+import mongoose from "mongoose";
 
 const lk21Models = new mongoose.Schema({
   provider: {
@@ -28,12 +27,4 @@ const lk21Schema = new mongoose.Schema({
   },
 });
 
-const getMovieModel = async () => {
-  const conn = await dbConnectMovie();
-  if (conn.models.lk21) {
-    return conn.models.lk21;
-  }
-  return conn.model("lk21", lk21Schema);
-};
-
-export default getMovieModel;
+export default mongoose.models.lk21 || mongoose.model('lk21', lk21Schema)

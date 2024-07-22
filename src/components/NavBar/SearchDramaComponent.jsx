@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
-export const SearchAnimeComponent = () => {
+export const SearchDramaComponent = () => {
     const searchRef = useRef(null);
     const router = useRouter();
 
@@ -12,7 +12,7 @@ export const SearchAnimeComponent = () => {
             e.preventDefault();
             const searchValue = searchRef.current?.value;
             if (searchValue) {
-                router.push(`../../anime/search/${encodeURIComponent(searchValue)}`);
+                router.push(`../../drama/search/${encodeURIComponent(searchValue)}`);
             }
         }
     };
@@ -21,8 +21,8 @@ export const SearchAnimeComponent = () => {
         <div className="flex items-center space-x-2">
             <input
                 type="text"
-                placeholder="Search Anime..."
-                className="px-4 py-2 text-black border rounded-md focus:outline-none focus:border-blue-500"
+                placeholder="Search Drama..."
+                className="input input-bordered w-full max-w-xs px-4 py-2  border rounded-md focus:outline-none focus:border-blue-500"
                 ref={searchRef}
                 onKeyDown={handleSearch}
             />

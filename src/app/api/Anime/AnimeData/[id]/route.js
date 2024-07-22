@@ -1,21 +1,22 @@
 import { NextResponse } from "next/server";
-import { dbConnectMovie} from "@/src/lib/mongodb";
-import getMovieModel from "@/model/movie";
+import { dbConnect } from "@/src/lib/mongodb";
+import AnimeModel from "@/model/anime";
 
 export async function GET(req, { params }) {
-  await dbConnectMovie();
-  const Movies = await getMovieModel()
-  console.log({params});
+  await dbConnect();
 
   try {
-    const id = parseInt(params.keyword)
+    console.log({params});
+    const id = parseInt(params.id);
+
     if (!id) {
       return NextResponse.json(
         { success: false, message: "id is required" },
         { status: 400 }
       );
     }
-    const movie = await Movies.findOne({ id: id })
+
+    const movie = await AnimeModel.findOne({ id: id })
       .select("-_id -__v")
       .lean();
 
