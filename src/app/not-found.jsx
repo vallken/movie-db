@@ -1,4 +1,4 @@
-'use client'; // This is a client component 👈🏽
+'use client';
 
 import Link from 'next/link';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ export default function NotFound() {
           Oops! Page not found
         </p>
         <p className="text-lg text-gray-500 mb-8 max-w-md mx-auto">
-          We're sorry, but the page you're looking for doesn't exist or has been moved.
+          We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <div className="space-y-4 sm:space-y-0 sm:space-x-4">
           <Link href="/" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
