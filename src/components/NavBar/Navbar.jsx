@@ -25,9 +25,26 @@ const NavBar = () => {
               </svg>
             </label>
           </div>
-          <div className="flex-1 px-2 mx-2">
+          <div className="flex-1 px-2">
             <Link href={"/"} className="text-lg font-bold">
-              VAL DATABASE
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="150"
+                height="40"
+                viewBox="0 0 500 100"
+              >
+                <text
+                  x="10"
+                  y="80"
+                  className="font-sayyeda"
+                  fontSize="100"
+                  fill="white"
+                  stroke="black"
+                  strokeWidth="2"
+                >
+                  VAL DATABASE
+                </text>
+              </svg>
             </Link>
           </div>
           <div className="flex-none hidden lg:block">
@@ -43,7 +60,7 @@ const NavBar = () => {
               </li>
             </ul>
           </div>
-        <ThemeToggle />
+          <ThemeToggle />
         </div>
       </div>
       <div className="drawer-side z-[40]">

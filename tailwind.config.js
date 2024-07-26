@@ -25,6 +25,9 @@ module.exports = {
           '100%': { transform: 'rotate(360deg)' },
         },
       },
+      fontFamily: {
+        'sayyeda': ['Sayyeda', 'cursive'],
+      },
     },
   },
   plugins: [require('daisyui'),],

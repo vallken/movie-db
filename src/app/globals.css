@@ -13,3 +13,11 @@
   padding: 0;
   box-sizing: border-box; /* Opsi: membuat box-sizing border-box */
 }
+
+@font-face {
+  font-family: 'Sayyeda';
+  src: url('../../public/fonts/Sayyeda.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
