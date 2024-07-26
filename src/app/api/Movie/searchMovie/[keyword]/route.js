@@ -23,7 +23,7 @@ export async function GET(req, { params }) {
       title: { $regex: titleRegex },
     });
     const movies = await Movie.find({ title: { $regex: titleRegex } })
-      .select("-_id -__v")
+      .select("-__v")
       .skip(skip)
       .limit(limit)
       .lean();
