@@ -1,8 +1,6 @@
 import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
 import { getAnimeData } from "@/src/lib/api-lib";
 import Image from "next/image";
-import { Suspense } from "react";
-import LoadingSpinner from "../../loading";
 import DisqusComments from "@/src/components/discqus-comment";
 import Link from "next/link";
 
@@ -17,7 +15,7 @@ const Page = async ({ params, searchParams }) => {
   return (
     <div className="bg-gray-200 p-2">
       <SearchAnimeComponent />
-      <Suspense fallback={<LoadingSpinner />}>
+      <div className="container mx-auto px-4 py-8">
         <div className="hero min-h-screen max-w-5xl mx-auto mt-4">
           <div className="hero-content flex-col lg:flex-row bg-white rounded-lg shadow-md mx-6">
             <section>
@@ -61,9 +59,7 @@ const Page = async ({ params, searchParams }) => {
               </div>
               <div className="relative mt-4">
                 <details className="dropdown w-full">
-                  <summary className="btn btn-md md:mx-auto">
-                    Download
-                  </summary>
+                  <summary className="btn btn-md md:mx-auto">Download</summary>
                   <div className="mt-4 px-3">
                     {anime.link &&
                       anime.link.map((resolution) => (
@@ -92,11 +88,17 @@ const Page = async ({ params, searchParams }) => {
                   </div>
                 </details>
               </div>
-              <DisqusComments post={anime} />
             </section>
           </div>
         </div>
-      </Suspense>
+        <section>
+          <div className="mt-8">
+            <div className="disqus-container" style={{ all: "initial" }}>
+              <DisqusComments post={anime} />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

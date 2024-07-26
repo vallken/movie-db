@@ -1,71 +1,113 @@
-import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Suspense } from "react";
-import LoadingSpinner from "../../loading";
+import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
 import { getMovieData } from "@/src/lib/api-lib";
-import DisqusComments from "@/src/components/discqus-comment";
+import dynamic from "next/dynamic";
+
+const DynamicDisqusComments = dynamic(
+  () => import("@/src/components/discqus-comment"),
+  {
+    ssr: false,
+  }
+);
+
+const defaultImage = "https://placehold.co/400x600.png";
+
+const DetailItem = ({ label, value }) => (
+  <div className="mb-2">
+    <span className="font-semibold text-gray-700 dark:text-gray-300">
+      {label}:
+    </span>
+    <span className="ml-2 text-gray-600 dark:text-gray-400">{value}</span>
+  </div>
+);
 
 const Page = async ({ params, searchParams }) => {
-  const { keyword } = params;
-  const id = searchParams.id;
+  const { id } = searchParams;
   const result = await getMovieData(id);
 
   if (!result) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-800">
         <h1 className="text-3xl font-bold text-red-600">Movie not found</h1>
       </div>
     );
   }
 
   const movie = result.data;
-  const defaultImage = "https://placehold.co/400x600.png";
 
   return (
-    <div className="bg-gray-200 dark:bg-gray-800 min-h-screen p-4">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
       <SearchMovieComponent />
-      <Suspense fallback={<LoadingSpinner />}>
-        <div className="hero min-h-screen max-w-5xl mx-auto my-4 bg-gray-100 dark:bg-gray-500 shadow-md rounded-lg">
-          <div className="hero-content flex-col lg:flex-row items-start md:items-center">
-            <div className="w-full md:w-1/3 mb-4 md:mb-0">
-              <Image
-                src={movie.image ? `https:${movie.image}` : defaultImage}
-                alt={movie.title}
-                width={300}
-                height={500}
-                className="h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="md:ml-6 w-full md:w-2/3">
-              <h1 className="md:text-4xl text-xl text-center dark:text-gray-200 font-bold text-gray-800 mb-4">
-                {movie.title}
-              </h1>
-              <div className="relative">
-                <details className="dropdown w-full">
-                  <summary className="btn md:mx-auto btn-outline w-full">Download</summary>
-                  <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-full md:w-52 p-2 shadow mt-1">
-                    {movie.details?.map((detail) => (
-                      <li key={detail._id}>
-                        <Link
-                          href={detail.link}
-                          className="text-blue-500 hover:underline"
-                        >
-                          {detail.provider}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <div className="">
+            <section>
+            <div className="md:max-w-90 md:mx-auto">
+                <Image
+                  src={movie.image || defaultImage}
+                  alt={movie.title}
+                  width={400}
+                  height={600}
+                  className="w-full h-64 object-cover md: rounded-t-lg"
+                />
               </div>
-            </div>
+              <div className="md:w-2/3 p-6">
+                <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
+                  {movie.title}
+                </h1>
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <DetailItem label="Negara" value={movie?.data.negara} />
+                  <DetailItem
+                    label="Bintang Film"
+                    value={movie.data.bintangFilm.join(", ")}
+                  />
+                  <DetailItem label="Sutradara" value={movie?.data.sutradara} />
+                  <DetailItem
+                    label="iMDb"
+                    value={`${movie.data.imdb.rating}/${movie.data.imdb.scale} (${movie.data.imdb.users} Users)`}
+                  />
+                  <DetailItem label="Genre" value={movie.data.genre} />
+                  <DetailItem label="Durasi" value={movie.data.durasi} />
+                </div>
+                <div className="mb-6">
+                  <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                    Sinopsis
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {movie.synopsis}
+                  </p>
+                </div>
+                <div className="relative">
+                  <details className="dropdown w-full">
+                    <summary className="btn btn-primary w-auto">
+                      Download
+                    </summary>
+                    <ul className="menu dropdown-content bg-base-200 rounded-box z-[1] w-full md:w-52 p-2 shadow mt-1 h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 absolute">
+                      {movie.details.map((detail) => (
+                        <li key={detail._id}>
+                          <Link
+                            href={detail.link}
+                            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+                          >
+                            {detail.provider}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
-        <div>
-          
-          <DisqusComments post={movie} />
+        <div className="mt-8">
+          <div className="disqus-container" style={{ all: "initial" }}>
+            <DynamicDisqusComments post={movie} />
+          </div>
         </div>
-      </Suspense>
+      </div>
     </div>
   );
 };

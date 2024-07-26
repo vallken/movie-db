@@ -7,15 +7,15 @@ export async function GET(req, { params }) {
   console.log({params});
 
   try {
-    const id = parseInt(params.keyword)
+    const id = params.keyword
     if (!id) {
       return NextResponse.json(
         { success: false, message: "id is required" },
         { status: 400 }
       );
     }
-    const movie = await Movies.findOne({ id: id })
-      .select("-_id -__v")
+    const movie = await Movies.findOne({ _id: id })
+      .select("-__v")
       .lean();
 
     if (!movie) {

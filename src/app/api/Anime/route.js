@@ -18,9 +18,9 @@ export const GET = async (req) => {
 
     const links = await AnimeModel.find(
       {},
-      { title: 1, images: 1, id: 1 }
+      { title: 1, images: 1, _id: 1 }
     )
-      .select("-_id -__v")
+      .select("-__v")
       .skip(skip)
       .limit(limit)
       .lean();

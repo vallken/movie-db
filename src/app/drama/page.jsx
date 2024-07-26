@@ -29,7 +29,7 @@ export default async function Page({ searchParams }) {
             : "https://placehold.co/400x600.png";
           return (
             <Link
-              href={`/drama/${cleanUrl(movie.title)}?id=${movie.id}`}
+              href={`/drama/${cleanUrl(movie.title)}?id=${movie._id}`}
               key={movie.title}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >

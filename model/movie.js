@@ -11,7 +11,6 @@ const lk21Models = new mongoose.Schema({
   },
 });
 const lk21Schema = new mongoose.Schema({
-  id: { type: Number, required: true },
   title: {
     type: String,
     required: true,
@@ -21,9 +20,20 @@ const lk21Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
+  synopsis: { type: String, required: true },
+  data: {
+    kualitas: {type: String, required: true},
+    negara: {type: String, required: true},
+    bintangFilm: [{type: String, required: true}],
+    sutradara: {type: String, required: true},
+    genre: {type: String, required: true},
+    imdb: {
+      rating: {type: Number, required: true},
+      scale: {type: Number, required: true},
+      users: {type: Number, required: true}
+    },
+    diterbitkan: {type: String, required: true},
+    durasi: {type: String, required: true}
   },
 });
 

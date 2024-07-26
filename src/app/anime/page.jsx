@@ -37,7 +37,7 @@ export default async function Page({ searchParams }) {
               : "https://placehold.co/400x600.png";
             return (
               <Link
-                href={`/anime/${cleanUrl(anime.title)}?id=${anime.id}`}
+                href={`/anime/${cleanUrl(anime.title)}?id=${anime._id}`}
                 key={anime.id}
                 className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
               >

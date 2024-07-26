@@ -3,10 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/src/lib/utilities/Pagination";
 import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
-import { Suspense } from "react";
-import LoadingSpinner from "@/src/app/loading";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
-import { notFound } from "next/navigation";
 import NotFound from "@/src/app/not-found";
 
 export default async function Page({ params, searchParams }) {
@@ -31,7 +28,6 @@ export default async function Page({ params, searchParams }) {
   return (
     <div className="bg-gray-200 p-2">
       <SearchAnimeComponent />
-      <Suspense fallback={<LoadingSpinner />}>
         <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
           {posts.map((anime) => {
             const defaultImage = anime.images
@@ -63,7 +59,6 @@ export default async function Page({ params, searchParams }) {
         <div className="flex justify-center items-center gap-2">
           <Pagination page={page} totalPages={totalPages} keyword={keyword} />
         </div>
-      </Suspense>
     </div>
   );
 }

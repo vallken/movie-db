@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
 
   try {
     console.log({params});
-    const id = parseInt(params.id);
+    const id = params.id;
 
     if (!id) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function GET(req, { params }) {
       );
     }
 
-    const movie = await AnimeModel.findOne({ id: id })
+    const movie = await AnimeModel.findOne({ _id: id })
       .select("-_id -__v")
       .lean();
 
