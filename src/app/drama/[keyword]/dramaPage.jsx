@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import CloudinaryImage from "@/src/components/CdnImage";
 
 const DynamicDisqusComments = dynamic(
   () => import("@/src/components/discqus-comment"),
@@ -20,8 +20,8 @@ const DramaDetail = ({ posts }) => {
         <div className="">
           <section>
             <div className="md:max-w-90 md:mx-auto">
-              <Image
-                src={posts?.image || defaultImage}
+              <CloudinaryImage
+                src={posts.cloudinaryId}
                 alt={posts.title}
                 width={300}
                 height={400}

@@ -17,7 +17,7 @@ export const GET = async (req) => {
     
     const links = await Drama.find(
       { title: { $exists: true } },
-      { title: 1, image: 1, _id: 1 }
+      { title: 1, image: 1, _id: 1, cloudinaryId: 1 }
     )
       .skip(skip)
       .limit(limit)

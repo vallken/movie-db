@@ -81,7 +81,8 @@ const DramaSchema = new mongoose.Schema(
       diterbitkan: {type: String, required: true},
       durasi: {type: String, required: true}
     },
-    id: {type: Number, required: true}
+    id: {type: Number, required: true},
+    cloudinaryId: {type: String, required: true},
   },
   {
     timestamps: true,

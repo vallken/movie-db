@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
 import { getMovieData } from "@/src/lib/api-lib";
 import dynamic from "next/dynamic";
+import CloudinaryImage from "@/src/components/CdnImage";
 
 const DynamicDisqusComments = dynamic(
   () => import("@/src/components/discqus-comment"),
@@ -36,6 +37,7 @@ const Page = async ({ params, searchParams }) => {
   }
 
   const movie = result.data;
+  console.log(movie.cloudinaryId);
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
@@ -45,8 +47,8 @@ const Page = async ({ params, searchParams }) => {
           <div className="">
             <section>
             <div className="md:max-w-90 md:mx-auto">
-                <Image
-                  src={movie.image || defaultImage}
+                <CloudinaryImage
+                  src={movie.cloudinaryId}
                   alt={movie.title}
                   width={400}
                   height={600}

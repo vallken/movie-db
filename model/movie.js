@@ -35,6 +35,7 @@ const lk21Schema = new mongoose.Schema({
     diterbitkan: {type: String, required: true},
     durasi: {type: String, required: true}
   },
+  cloudinaryId: {type: String, required: true},
 });
 
 export default mongoose.models.lk21 || mongoose.model('lk21', lk21Schema)

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Pagination from "@/src/lib/utilities/Pagination";
 import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
+import CloudinaryImage from "@/src/components/CdnImage";
 
 export default async function Page({ searchParams }) {
   const page = parseInt(searchParams.page, 10) || 1;
@@ -25,7 +26,7 @@ export default async function Page({ searchParams }) {
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
         {posts?.map((movie) => {
           const defaultImage = movie.image
-            ? `${movie.image}`
+            ? `${movie.cloudinaryId}`
             : "https://placehold.co/400x600.png";
           return (
             <Link
@@ -33,7 +34,7 @@ export default async function Page({ searchParams }) {
               key={movie.title}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >
-              <Image
+              <CloudinaryImage
                 src={defaultImage}
                 alt={movie.title}
                 width={200}
