@@ -1,8 +1,6 @@
 import { searchAnime } from "@/src/lib/api-lib";
 import Link from "next/link";
-import Image from "next/image";
 import Pagination from "@/src/lib/utilities/Pagination";
-import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
 import NotFound from "@/src/app/not-found";
 
@@ -38,7 +36,7 @@ export default async function Page({ params, searchParams }) {
                 key={anime.id}
                 className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
               >
-                <Image
+                <img
                   src={defaultImage}
                   alt={anime.title}
                   width={200}

@@ -1,6 +1,5 @@
 import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
 import { getAnimeData } from "@/src/lib/api-lib";
-import Image from "next/image";
 import DisqusComments from "@/src/components/discqus-comment";
 import Link from "next/link";
 
@@ -28,7 +27,7 @@ const Page = async ({ params, searchParams }) => {
           <div className="">
             <section>
               <div className="md:max-w-90 md:mx-auto">
-                <Image
+                <img
                   src={anime.images?.jpg || anime.images?.webp || defaultImage}
                   alt={anime.title}
                   width={300}

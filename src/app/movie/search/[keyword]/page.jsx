@@ -1,6 +1,5 @@
 import { searchMovie } from '@/src/lib/api-lib'
 import Link from 'next/link';
-import Image from 'next/image';
 import Pagination from '@/src/lib/utilities/Pagination';
 import { cleanUrl } from '@/src/lib/utilities/cleanUrl';
 import CloudinaryImage from '@/src/components/CdnImage';

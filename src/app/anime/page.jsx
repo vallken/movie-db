@@ -2,10 +2,6 @@ import { getAnime } from "@/src/lib/api-lib";
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/src/lib/utilities/Pagination";
-import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
-import { Suspense } from "react";
-import LoadingSpinner from "../loading";
-import NotFound from "../not-found";
 import EmptyState from "@/src/components/EmptyState";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
 
@@ -39,7 +35,7 @@ export default async function Page({ searchParams }) {
                 key={anime.id}
                 className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
               >
-                <Image
+                <img
                   src={defaultImage}
                   alt={anime.title}
                   width={200}

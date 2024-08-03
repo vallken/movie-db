@@ -1,7 +1,5 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { SearchMovieComponent } from "@/src/components/NavBar/SearchMovieComponent";
 import { getMovieData } from "@/src/lib/api-lib";
 import dynamic from "next/dynamic";
 import CloudinaryImage from "@/src/components/CdnImage";
