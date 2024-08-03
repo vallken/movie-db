@@ -27,7 +27,6 @@ export default async function Page({ params, searchParams }) {
 
   return (
     <div className="bg-gray-200 p-2">
-      <SearchAnimeComponent />
         <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
           {posts.map((anime) => {
             const defaultImage = anime.images

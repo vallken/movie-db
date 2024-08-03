@@ -9,7 +9,7 @@ export const GET = async (req) => {
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
     
-    const limit = 20;
+    const limit = 24;
     const skip = (page - 1) * limit;
     
     const totalDrama = await Drama.countDocuments({ title: { $exists: true } });

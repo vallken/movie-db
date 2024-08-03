@@ -21,8 +21,7 @@ export default async function Page({ searchParams }) {
   const totalPages = result.totalPages;
 
   return (
-    <div className="bg-gray-200 p-2">
-      <SearchDramaComponent />
+    <div className="bg-gray-200 dark:bg-gray-800 p-2">
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
         {posts?.map((movie) => {
           const defaultImage = movie.image
@@ -41,7 +40,7 @@ export default async function Page({ searchParams }) {
                 height={200}
                 className="w-full max-h-64 shadow-xl transform transition-transform duration-500 hover:scale-105"
               />
-              <h3 className="font-bold md:text-xl text-lg p-4">
+              <h3 className="font-bold md:text-xl dark:text-gray-200 text-lg p-4">
                 {movie.title.split('Season')[0].trim()}
               </h3>
             </Link>

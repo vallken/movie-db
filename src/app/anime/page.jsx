@@ -28,8 +28,6 @@ export default async function Page({ searchParams }) {
 
   return (
     <div className="bg-gray-200 p-2">
-      <SearchAnimeComponent />
-      <Suspense fallback={<LoadingSpinner />}>
         <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
           {posts?.map((anime) => {
             const defaultImage = anime.images?.webp
@@ -61,7 +59,6 @@ export default async function Page({ searchParams }) {
         <div className="flex justify-center items-center gap-2">
           <Pagination page={page} totalPages={totalPages} />
         </div>
-      </Suspense>
     </div>
   );
 }

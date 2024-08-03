@@ -4,7 +4,6 @@ import Movies from "@/model/movie";
 
 export async function GET(req, { params }) {
   await dbConnect();
-  console.log({params});
 
   try {
     const id = params.keyword

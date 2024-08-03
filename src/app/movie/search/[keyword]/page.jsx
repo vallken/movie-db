@@ -1,7 +1,6 @@
 import { searchMovie } from '@/src/lib/api-lib'
 import Link from 'next/link';
 import Image from 'next/image';
-import { SearchMovieComponent } from '@/src/components/NavBar/SearchMovieComponent'
 import Pagination from '@/src/lib/utilities/Pagination';
 import { cleanUrl } from '@/src/lib/utilities/cleanUrl';
 import CloudinaryImage from '@/src/components/CdnImage';
@@ -21,7 +20,6 @@ export default async function Page({ params, searchParams }) {
 
   return (
     <div className="bg-gray-200 dark:bg-gray-800 p-2">
-      <SearchMovieComponent />
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
         {posts.map((movie) => {
           const defaultImage = movie.image
@@ -29,8 +27,8 @@ export default async function Page({ params, searchParams }) {
             : "https://placehold.co/400x600.png";
           return (
             <Link
-              href={`/movie/${cleanUrl(movie.title)}?id=${movie._id}`}
-              key={movie.title}
+              href={ `/movie/${cleanUrl(movie.title)}?id=${movie._id}`}
+              key={movie._id}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >
               <CloudinaryImage

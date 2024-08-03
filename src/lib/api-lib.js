@@ -4,7 +4,7 @@ export async function getMovieData(id) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/MovieData/${id}`, {
-        cache: "only-if-cached"
+        cache: "force-cache"
       }
     );
     const result = await response.json();
@@ -54,7 +54,7 @@ export async function getDramaData(id) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/DramaData/${id}`,{
-        cache: "only-if-cached"
+        cache: "force-cache"
       }
     );
     const result = await response.json();
@@ -107,7 +107,7 @@ export const getAnimeData = async (id) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/AnimeData/${id}`,
       {
-        cache: "only-if-cached",
+        cache: "force-cache",
       }
     );
     const result = await response.json();

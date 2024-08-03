@@ -4,6 +4,15 @@ import Image from "next/image";
 import DisqusComments from "@/src/components/discqus-comment";
 import Link from "next/link";
 
+const DetailItem = ({ label, value }) => (
+  <div className="mb-2">
+    <span className="font-semibold text-gray-700 dark:text-gray-200">
+      {label}:
+    </span>
+    <span className="ml-2 text-gray-600 dark:text-gray-200">{value}</span>
+  </div>
+);
+
 const Page = async ({ params, searchParams }) => {
   const id = searchParams.id;
 
@@ -13,13 +22,12 @@ const Page = async ({ params, searchParams }) => {
   const defaultImage = "https://placehold.co/400x600.png";
 
   return (
-    <div className="bg-gray-200 p-2">
-      <SearchAnimeComponent />
+    <div className="">
       <div className="container mx-auto px-4 py-8">
-        <div className="hero min-h-screen max-w-5xl mx-auto mt-4">
-          <div className="hero-content flex-col lg:flex-row bg-white rounded-lg shadow-md mx-6">
+        <div className="bg-white dark:bg-gray-600 rounded-lg shadow-lg">
+          <div className="">
             <section>
-              <div>
+              <div className="md:max-w-90 md:mx-auto">
                 <Image
                   src={anime.images?.jpg || anime.images?.webp || defaultImage}
                   alt={anime.title}
@@ -32,34 +40,24 @@ const Page = async ({ params, searchParams }) => {
                     {anime.title}
                   </h2>
                   <div className="p-4 grid grid-cols-2">
-                    <p className="text-gray-700 text-sm mb-2">
-                      <span className="font-bold">Episodes:</span>{" "}
-                      {anime.episodes}
-                    </p>
-                    <p className="text-gray-700 text-sm mb-2">
-                      <span className="font-bold">Status:</span> {anime.status}
-                    </p>
-                    <p className="text-gray-700 text-sm mb-2">
-                      <span className="font-bold">Duration:</span>{" "}
-                      {anime.duration}
-                    </p>
-                    <p className="text-gray-700 text-sm mb-2">
-                      <span className="font-bold">Rating:</span> {anime.rating}
-                    </p>
-                    <p className="text-gray-700 text-sm mb-2">
-                      <span className="font-bold">Score:</span> {anime.score}
-                    </p>
+                    <DetailItem label="Episodes" value={anime.episodes} />
+                    <DetailItem label="Status" value={anime.status} />
+                    <DetailItem label='Duration' value={anime.duration}/>
+                    <DetailItem label='Rating' value={anime.rating} />
+                    <DetailItem label='Score' value={anime.score} />
                   </div>
-                  <p className="text-gray-700 text-sm px-3">
+                  <p className="text-gray-700 px-4 dark:text-gray-200">
                     <span className="font-bold">Sinopsis:</span>
                     <br />
                     {anime.synopsis}
                   </p>
                 </div>
               </div>
-              <div className="relative mt-4">
+              <div className="relative p-4">
                 <details className="dropdown w-full">
-                  <summary className="btn btn-md md:mx-auto">Download</summary>
+                  <summary className="btn btn-active w-auto">
+                    Download
+                  </summary>
                   <div className="mt-4 px-3">
                     {anime.link &&
                       anime.link.map((resolution) => (

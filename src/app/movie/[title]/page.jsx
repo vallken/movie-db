@@ -17,14 +17,15 @@ const defaultImage = "https://placehold.co/400x600.png";
 
 const DetailItem = ({ label, value }) => (
   <div className="mb-2">
-    <span className="font-semibold text-gray-700 dark:text-gray-300">
+    <span className="font-semibold text-gray-700 dark:text-gray-200">
       {label}:
     </span>
-    <span className="ml-2 text-gray-600 dark:text-gray-400">{value}</span>
+    <span className="ml-2 text-gray-600 dark:text-gray-200">{value}</span>
   </div>
 );
 
 const Page = async ({ params, searchParams }) => {
+  console.log({params});
   const { id } = searchParams;
   const result = await getMovieData(id);
 
@@ -37,13 +38,11 @@ const Page = async ({ params, searchParams }) => {
   }
 
   const movie = result.data;
-  console.log(movie.cloudinaryId);
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <SearchMovieComponent />
+    <div className="">
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+        <div className="bg-gray-100 dark:bg-gray-600 rounded-lg shadow-lg">
           <div className="">
             <section>
             <div className="md:max-w-90 md:mx-auto">
@@ -55,35 +54,32 @@ const Page = async ({ params, searchParams }) => {
                   className="w-full h-64 object-cover md: rounded-t-lg"
                 />
               </div>
-              <div className="md:w-2/3 p-6">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
+              <div>
+                <h2 className="font-bold text-xl mb-2 px-3 mt-3">
                   {movie.title}
-                </h1>
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                </h2>
+                <div className="p-4 grid grid-cols-2">
                   <DetailItem label="Negara" value={movie?.data.negara} />
                   <DetailItem
                     label="Bintang Film"
                     value={movie.data.bintangFilm.join(", ")}
                   />
+                  <DetailItem label="Durasi" value={movie.data.durasi} />
                   <DetailItem label="Sutradara" value={movie?.data.sutradara} />
                   <DetailItem
                     label="iMDb"
                     value={`${movie.data.imdb.rating}/${movie.data.imdb.scale} (${movie.data.imdb.users} Users)`}
                   />
                   <DetailItem label="Genre" value={movie.data.genre} />
-                  <DetailItem label="Durasi" value={movie.data.durasi} />
                 </div>
-                <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
-                    Sinopsis
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {movie.synopsis}
-                  </p>
-                </div>
-                <div className="relative">
+                <p className="text-gray-700 px-4 dark:text-gray-200">
+                  <span className="font-bold">Sinopsis:</span>
+                  <br />
+                  {movie.synopsis}
+                </p>
+                <div className="relative p-4">
                   <details className="dropdown w-full">
-                    <summary className="btn btn-primary w-auto">
+                    <summary className="btn btn-active w-auto">
                       Download
                     </summary>
                     <ul className="menu dropdown-content bg-base-200 rounded-box z-[1] w-full md:w-52 p-2 shadow mt-1 h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 absolute">

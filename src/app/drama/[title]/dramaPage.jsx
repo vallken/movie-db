@@ -14,9 +14,18 @@ const DynamicDisqusComments = dynamic(
 const DramaDetail = ({ posts }) => {
   const defaultImage = "https://placehold.co/400x600.png";
 
+  const DetailItem = ({ label, value }) => (
+    <div className="mb-2">
+      <span className="font-semibold text-gray-700 dark:text-gray-200">
+        {label}:
+      </span>
+      <span className="ml-2 text-gray-600 dark:text-gray-200">{value}</span>
+    </div>
+  );
+
   return (
     <>
-      <div className=" bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <div className=" bg-gray-100 dark:bg-gray-900 min-h-screen">
         <div className="">
           <section>
             <div className="md:max-w-90 md:mx-auto">
@@ -32,32 +41,20 @@ const DramaDetail = ({ posts }) => {
                   {posts?.title.split("Season")[0].trim()}
                 </h2>
                 <div className="p-4 grid grid-cols-2">
-                  <p className="text-gray-700 text-sm mb-2">
-                    <span className="font-bold">Status:</span>{" "}
-                    {posts?.data.status}
-                  </p>
-                  <p className="text-gray-700 text-sm mb-2">
-                    <span className="font-bold">Negara:</span>{" "}
-                    {posts?.data.negara}
-                  </p>
-                  <p className="text-gray-700 text-sm mb-2">
-                    <span className="font-bold">Durasi:</span>{" "}
-                    {posts.data.durasi}
-                  </p>
-                  <p className="text-gray-700 text-sm mb-2">
-                    <span className="font-bold">Bintang Film:</span>{" "}
-                    {posts.data.bintangFilm.join(", ")}
-                  </p>
-                  <p className="text-gray-700 text-sm mb-2">
-                    <span className="font-bold">iMDb:</span>{" "}
-                    {posts.data.imdb.rating}/{posts.data.imdb.scale} from{" "}
-                    {posts.data.imdb.users} Users
-                  </p>
-                  <p className="text-gray-700 text-sm mb-2">
-                    <span className="font-bold">Genre:</span> {posts.data.genre}
-                  </p>
+                  <DetailItem label="Status" value={posts?.data.status} />
+                  <DetailItem label="Negara" value={posts?.data.negara} />
+                  <DetailItem label="Durasi" value={posts?.data.durasi} />
+                  <DetailItem
+                    label="Bintang Film"
+                    value={posts?.data.bintangFilm.join(", ")}
+                  />
+                  <DetailItem
+                    label="iMDb"
+                    value={`${posts?.data.imdb.rating}/${posts?.data.imdb.scale} from ${posts?.data.imdb.users} Users`}
+                  />
+                  <DetailItem label='Genre' value={posts?.data.genre} />
                 </div>
-                <p className="text-gray-700 text-sm px-3">
+                <p className="text-gray-700 px-4 dark:text-gray-200">
                   <span className="font-bold">Sinopsis:</span>
                   <br />
                   {posts.synopsis}
@@ -66,7 +63,7 @@ const DramaDetail = ({ posts }) => {
             </div>
             <div className="relative p-4">
               <details className="dropdown w-full ">
-                <summary className="btn md:mx-auto">Download</summary>
+                <summary className="btn btn-active md:mx-auto">Download</summary>
                 <div className="mt-4 px-3">
                   {posts.seasons &&
                     posts.seasons.map((season, seasonIndex) => (
