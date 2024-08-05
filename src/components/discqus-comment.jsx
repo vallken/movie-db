@@ -9,11 +9,10 @@ const DisqusComments = ({ post }) => {
   const pathname = usePathname();
   
   const getUrl = useCallback(() => {
-    return `${window.location.origin}${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+    return `https://val-db.vercel.app${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
   }, [pathname, searchParams]);
   
   const [disqusConfig, setDisqusConfig] = useState(null);
-  console.log({post})
   useEffect(() => {
     setDisqusConfig({
       url: getUrl(),
