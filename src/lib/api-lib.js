@@ -3,8 +3,9 @@
 export async function getMovieData(id) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/MovieData/${id}`, {
-        cache: "force-cache"
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/MovieData/${id}`,
+      {
+        cache: "force-cache",
       }
     );
     const result = await response.json();
@@ -53,8 +54,9 @@ export async function getMovies(page) {
 export async function getDramaData(id) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/DramaData/${id}`,{
-        cache: "force-cache"
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/DramaData/${id}`,
+      {
+        cache: "force-cache",
       }
     );
     const result = await response.json();
@@ -98,8 +100,6 @@ export async function getDramas(page) {
   }
 }
 
-
-
 //Anime
 
 export const getAnimeData = async (id) => {
@@ -137,7 +137,7 @@ export async function getAnime(page) {
 export const searchAnime = async (Keyword, page) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/searchAnime/${encodeURIComponent(Keyword)}?page=${page}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/searchAnime/${Keyword}?page=${page}`,
       {
         cache: "force-cache",
       }
@@ -147,6 +147,6 @@ export const searchAnime = async (Keyword, page) => {
     }
     return await response.json();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 };

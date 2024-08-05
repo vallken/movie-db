@@ -9,8 +9,8 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
-      <main className="text-center">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200 dark:bg-gray-800 px-4 sm:px-6 lg:px-8">
+      <main className="text-center my-4">
         <h1 className="text-6xl sm:text-8xl font-bold text-gray-800 mb-4">
           404
         </h1>
@@ -18,7 +18,7 @@ export default function NotFound() {
           Oops! Page not found
         </p>
         <p className="text-lg text-gray-500 mb-8 max-w-md mx-auto">
-          We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist or has been moved.
+          We're sorry, but the page you're looking for doesn't exist or has been moved.
         </p>
         <div className="space-y-4 sm:space-y-0 sm:space-x-4">
           <Link href="/" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">

@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.7.3",
     "disqus-react": "^1.1.5",
     "mongoose": "^8.5.0",
     "next": "14.2.4",
     "next-cloudinary": "^6.6.2",
+    "node-fetch": "^3.3.2",
     "react": "^18",
     "react-dom": "^18"
   },

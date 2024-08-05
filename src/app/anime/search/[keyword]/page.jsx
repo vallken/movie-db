@@ -2,10 +2,10 @@ import { searchAnime } from "@/src/lib/api-lib";
 import Link from "next/link";
 import Pagination from "@/src/lib/utilities/Pagination";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
-import NotFound from "@/src/app/not-found";
 
 export default async function Page({ params, searchParams }) {
   const keyword = params.keyword;
+  
   const page = searchParams.page || 1;
 
   const result = await searchAnime(keyword, page);
@@ -18,10 +18,7 @@ export default async function Page({ params, searchParams }) {
 
   const posts = result.data;
   const totalPages = result.totalPages;
-
-  if(posts.length === 0 ){
-    return <NotFound />
-  }
+  
 
   return (
     <div className="bg-gray-200 p-2">

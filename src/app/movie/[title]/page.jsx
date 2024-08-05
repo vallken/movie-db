@@ -23,14 +23,14 @@ const DetailItem = ({ label, value }) => (
 );
 
 const Page = async ({ params, searchParams }) => {
-  console.log({params});
+  console.log({ params });
   const { id } = searchParams;
   const result = await getMovieData(id);
 
-  if (!result) {
+  if (result.totalPages === 0) {
     return (
       <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-800">
-        <h1 className="text-3xl font-bold text-red-600">Movie not found</h1>
+        <h1 className="text-2xl font-bold text-red-600">Movie not found</h1>
       </div>
     );
   }
@@ -43,7 +43,7 @@ const Page = async ({ params, searchParams }) => {
         <div className="bg-gray-100 dark:bg-gray-600 rounded-lg shadow-lg">
           <div className="">
             <section>
-            <div className="md:max-w-90 md:mx-auto">
+              <div className="md:max-w-90 md:mx-auto">
                 <CloudinaryImage
                   src={movie.cloudinaryId}
                   alt={movie.title}

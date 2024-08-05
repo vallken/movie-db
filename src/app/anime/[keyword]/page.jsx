@@ -1,4 +1,3 @@
-import { SearchAnimeComponent } from "@/src/components/NavBar/SearchAnimeComponent";
 import { getAnimeData } from "@/src/lib/api-lib";
 import DisqusComments from "@/src/components/discqus-comment";
 import Link from "next/link";
