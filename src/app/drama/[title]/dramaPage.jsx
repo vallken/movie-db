@@ -14,7 +14,7 @@ const DynamicDisqusComments = dynamic(
 );
 
 const DramaDetail = ({ posts }) => {
-  const [selectedEpisode, setSelectedEpisode] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   const DetailItem = ({ label, value }) => (
     <div className="mb-2">
@@ -25,13 +25,13 @@ const DramaDetail = ({ posts }) => {
     </div>
   );
 
-  const handleEpisodeSelect = (episode) => {
-    setSelectedEpisode(episode);
+  const handleEpisodeSelect = (link) => {
+    setSelectedVideo(link);
   };
 
   return (
     <>
-      <div className=" bg-gray-100 dark:bg-gray-900 min-h-screen">
+      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
         <div className="">
           <section>
             <div className="md:max-w-90 md:mx-auto">
@@ -40,7 +40,7 @@ const DramaDetail = ({ posts }) => {
                 alt={posts.title}
                 width={300}
                 height={400}
-                className="w-full h-64 object-cover md: rounded-t-lg"
+                className="w-full h-64 object-cover md:rounded-t-lg"
               />
               <div>
                 <h2 className="font-bold text-xl mb-2 px-3 mt-3">
@@ -69,7 +69,7 @@ const DramaDetail = ({ posts }) => {
             </div>
             <div className="grid">
               <div className="relative p-4">
-                <details className="dropdown w-full ">
+                <details className="dropdown w-full">
                   <summary className="btn btn-active md:mx-auto">
                     Download
                   </summary>
@@ -86,8 +86,8 @@ const DramaDetail = ({ posts }) => {
                                 Eps ‣
                               </summary>
                               {season.episodes.map((detail, episodeIndex) => (
-                                <div className="join " key={episodeIndex}>
-                                  <details className="dropdown w-full ">
+                                <div className="join" key={episodeIndex}>
+                                  <details className="dropdown w-full">
                                     <summary className="join-horizontal join-item btn btn-outline btn-sm">
                                       {detail.episode}
                                     </summary>
@@ -101,9 +101,7 @@ const DramaDetail = ({ posts }) => {
                                           .map((prov, linkIndex) => (
                                             <li key={linkIndex}>
                                               <Link
-                                                href={
-                                                  prov.link ? prov.link : "/"
-                                                }
+                                                href={prov.link ? prov.link : "/"}
                                                 className="text-blue-600 hover:text-blue-800"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
@@ -137,16 +135,41 @@ const DramaDetail = ({ posts }) => {
                             {season.season}
                           </h4>
                           <ul className="list-none pl-5">
-                            {season.episodes.map((detail, episodeIndex) => (
-                              <li key={episodeIndex} className="mb-2">
-                                <button
-                                  className="btn btn-outline btn-sm"
-                                  onClick={() => handleEpisodeSelect(detail)}
-                                >
-                                  Episode {detail.episode}
-                                </button>
-                              </li>
-                            ))}
+                            <details className="dropdown w-auto">
+                              <summary className="btn btn-outline btn-sm">
+                                Eps ‣
+                              </summary>
+                              {season.episodes.map((detail, episodeIndex) => (
+                                <div className="join" key={episodeIndex}>
+                                  <details className="dropdown w-full">
+                                    <summary className="join-horizontal join-item btn btn-outline btn-sm">
+                                      {detail.episode}
+                                    </summary>
+                                    <li key={episodeIndex}>
+                                      <ul className="menu menu-sm z-[1] dropdown-content bg-base-200 rounded-box">
+                                        {detail.links
+                                          .filter(
+                                            (prov) =>
+                                              prov.provider == "Streaming"
+                                          )
+                                          .map((prov, linkIndex) => (
+                                            <li key={linkIndex}>
+                                              <a
+                                                onClick={() =>
+                                                  handleEpisodeSelect(prov.link)
+                                                }
+                                                className="text-blue-600 hover:text-blue-800"
+                                              >
+                                                {prov.provider}
+                                              </a>
+                                            </li>
+                                          ))}
+                                      </ul>
+                                    </li>
+                                  </details>
+                                </div>
+                              ))}
+                            </details>
                           </ul>
                         </div>
                       ))}
@@ -154,22 +177,16 @@ const DramaDetail = ({ posts }) => {
                 </details>
               </div>
             </div>
-            {selectedEpisode && (
+            {selectedVideo && (
               <div className="p-4">
-                {selectedEpisode.links
-                  .filter((prov) => prov.provider === "Streaming")
-                  .map((prov, linkIndex) => (
-                    <div key={linkIndex} className="mt-2">
-                      <VideoPlayer src={prov.link} />
-                    </div>
-                  ))}
+                <VideoPlayer src={selectedVideo} />
               </div>
             )}
           </section>
         </div>
       </div>
       <div className="disqus-container" style={{ all: "initial" }}>
-        <DynamicDisqusComments post={posts} />{" "}
+        <DynamicDisqusComments post={posts} />
       </div>
     </>
   );
