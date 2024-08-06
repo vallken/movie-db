@@ -15,7 +15,7 @@ const VideoPlayer = ({ src }) => {
     checkMobile();
   }, []);
 
-  if (isMobile && !(src.includes("emturbovip.com") || src.includes("emturbovid.com"))) {
+  if (isMobile && !(src?.includes("emturbovip.com") || src?.includes("emturbovid.com"))) {
     return <p>Link tidak tersedia</p>;
   }
 
