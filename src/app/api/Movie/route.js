@@ -1,5 +1,5 @@
 import { dbConnect } from "@/src/lib/mongodb";
-import Movie from "@/model/movie"
+import Movie from "@/model/movie";
 import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
@@ -17,10 +17,7 @@ export const GET = async (req) => {
     });
     const totalPages = Math.ceil(totalMovies / limit);
 
-    const links = await Movie.find(
-      {},
-      { title: 1, "details.provider": 1, "details.link": 1, image: 1 , cloudinaryId: 1, _id: 1 }
-    )
+    const links = await Movie.find({})
       .select("-__v")
       .skip(skip)
       .limit(limit)

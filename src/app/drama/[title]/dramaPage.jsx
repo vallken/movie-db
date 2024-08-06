@@ -1,8 +1,10 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import CloudinaryImage from "@/src/components/CdnImage";
+import VideoPlayer from "@/src/components/LazyFrame";
 
 const DynamicDisqusComments = dynamic(
   () => import("@/src/components/discqus-comment"),
@@ -12,7 +14,7 @@ const DynamicDisqusComments = dynamic(
 );
 
 const DramaDetail = ({ posts }) => {
-  const defaultImage = "https://placehold.co/400x600.png";
+  const [selectedEpisode, setSelectedEpisode] = useState(null);
 
   const DetailItem = ({ label, value }) => (
     <div className="mb-2">
@@ -22,6 +24,10 @@ const DramaDetail = ({ posts }) => {
       <span className="ml-2 text-gray-600 dark:text-gray-200">{value}</span>
     </div>
   );
+
+  const handleEpisodeSelect = (episode) => {
+    setSelectedEpisode(episode);
+  };
 
   return (
     <>
@@ -52,7 +58,7 @@ const DramaDetail = ({ posts }) => {
                     label="iMDb"
                     value={`${posts?.data.imdb.rating}/${posts?.data.imdb.scale} from ${posts?.data.imdb.users} Users`}
                   />
-                  <DetailItem label='Genre' value={posts?.data.genre} />
+                  <DetailItem label="Genre" value={posts?.data.genre} />
                 </div>
                 <p className="text-gray-700 px-4 dark:text-gray-200">
                   <span className="font-bold">Sinopsis:</span>
@@ -61,53 +67,104 @@ const DramaDetail = ({ posts }) => {
                 </p>
               </div>
             </div>
-            <div className="relative p-4">
-              <details className="dropdown w-full ">
-                <summary className="btn btn-active md:mx-auto">Download</summary>
-                <div className="mt-4 px-3">
-                  {posts.seasons &&
-                    posts.seasons.map((season, seasonIndex) => (
-                      <div key={seasonIndex} className="mb-4">
-                        <h4 className="font-semibold text-md mb-1">
-                          {season.season}
-                        </h4>
-                        <ul className="list-none pl-5">
-                          <details className="dropdown w-auto">
-                            <summary className="btn btn-outline btn-sm">
-                              Eps ‣
-                            </summary>
+            <div className="grid">
+              <div className="relative p-4">
+                <details className="dropdown w-full ">
+                  <summary className="btn btn-active md:mx-auto">
+                    Download
+                  </summary>
+                  <div className="mt-4 px-3">
+                    {posts.seasons &&
+                      posts.seasons.map((season, seasonIndex) => (
+                        <div key={seasonIndex} className="mb-4">
+                          <h4 className="font-semibold text-md mb-1">
+                            {season.season}
+                          </h4>
+                          <ul className="list-none pl-5">
+                            <details className="dropdown w-auto">
+                              <summary className="btn btn-outline btn-sm">
+                                Eps ‣
+                              </summary>
+                              {season.episodes.map((detail, episodeIndex) => (
+                                <div className="join " key={episodeIndex}>
+                                  <details className="dropdown w-full ">
+                                    <summary className="join-horizontal join-item btn btn-outline btn-sm">
+                                      {detail.episode}
+                                    </summary>
+                                    <li key={episodeIndex}>
+                                      <ul className="menu menu-sm z-[1] dropdown-content bg-base-200 rounded-box">
+                                        {detail.links
+                                          .filter(
+                                            (prov) =>
+                                              prov.provider != "Streaming"
+                                          )
+                                          .map((prov, linkIndex) => (
+                                            <li key={linkIndex}>
+                                              <Link
+                                                href={
+                                                  prov.link ? prov.link : "/"
+                                                }
+                                                className="text-blue-600 hover:text-blue-800"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                              >
+                                                {prov.provider}
+                                              </Link>
+                                            </li>
+                                          ))}
+                                      </ul>
+                                    </li>
+                                  </details>
+                                </div>
+                              ))}
+                            </details>
+                          </ul>
+                        </div>
+                      ))}
+                  </div>
+                </details>
+              </div>
+              <div className="relative p-4">
+                <details className="dropdown w-full">
+                  <summary className="btn btn-active md:mx-auto">
+                    Streaming
+                  </summary>
+                  <div className="mt-4 px-3">
+                    {posts.seasons &&
+                      posts.seasons.map((season, seasonIndex) => (
+                        <div key={seasonIndex} className="mb-4">
+                          <h4 className="font-semibold text-md mb-1">
+                            {season.season}
+                          </h4>
+                          <ul className="list-none pl-5">
                             {season.episodes.map((detail, episodeIndex) => (
-                              <div className="join " key={episodeIndex}>
-                                <details className="dropdown w-full ">
-                                  <summary className="join-horizontal join-item btn btn-outline btn-sm">
-                                    {detail.episode}
-                                  </summary>
-                                  <li key={episodeIndex}>
-                                    <ul className="menu menu-sm z-[1] dropdown-content bg-base-200 rounded-box">
-                                      {detail.links.map((prov, linkIndex) => (
-                                        <li key={linkIndex}>
-                                          <Link
-                                            href={prov.link ? prov.link : "/"}
-                                            className="text-blue-600 hover:text-blue-800"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            {prov.provider}
-                                          </Link>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </li>
-                                </details>
-                              </div>
+                              <li key={episodeIndex} className="mb-2">
+                                <button
+                                  className="btn btn-outline btn-sm"
+                                  onClick={() => handleEpisodeSelect(detail)}
+                                >
+                                  Episode {detail.episode}
+                                </button>
+                              </li>
                             ))}
-                          </details>
-                        </ul>
-                      </div>
-                    ))}
-                </div>
-              </details>
+                          </ul>
+                        </div>
+                      ))}
+                  </div>
+                </details>
+              </div>
             </div>
+            {selectedEpisode && (
+              <div className="p-4">
+                {selectedEpisode.links
+                  .filter((prov) => prov.provider === "Streaming")
+                  .map((prov, linkIndex) => (
+                    <div key={linkIndex} className="mt-2">
+                      <VideoPlayer src={prov.link} />
+                    </div>
+                  ))}
+              </div>
+            )}
           </section>
         </div>
       </div>
