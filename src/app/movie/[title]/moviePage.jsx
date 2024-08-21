@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import CloudinaryImage from "@/src/components/CdnImage";
 import VideoPlayer from "@/src/components/LazyFrame";
 
 const DynamicDisqusComments = dynamic(
@@ -34,8 +33,8 @@ const MovieDetail = ({ movie }) => {
         <div>
           <section>
             <div className="md:max-w-90 md:mx-auto">
-              <CloudinaryImage
-                src={movie.cloudinaryId}
+              <img
+                src={movie.image}
                 alt={movie.title}
                 width={400}
                 height={600}
@@ -73,7 +72,7 @@ const MovieDetail = ({ movie }) => {
                     </summary>
                     <ul className="menu dropdown-content bg-base-200 rounded-box z-[1] w-full md:w-52 p-2 shadow mt-1 h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 absolute">
                       {movie.details
-                        .filter((detail) => detail.provider !== "Streaming")
+                        .filter((detail) => detail.provider !==("Streaming" || "FileLion"))
                         .map((detail) => (
                           <li key={detail._id}>
                             <Link
@@ -90,7 +89,7 @@ const MovieDetail = ({ movie }) => {
                 <div className="relative p-4">
                   <div>
                     {movie.details
-                      .filter((prov) => prov.provider === "Streaming")
+                      .filter((prov) => prov.provider === "FileLion" || prov.provider === "Streaming")
                       .map((detail) => (
                         <button
                           key={detail._id}

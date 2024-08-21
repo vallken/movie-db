@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/NavBar/Navbar";
 import SearchHandle from "../components/NavBar/SearchHandle";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +16,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <div className="bg-gray-200 dark:bg-gray-800 relative min-h-screen">
-          <NavBar />
+        <div className="bg-gray-200 dark:bg-gray-800 min-h-screen relative">
+            <NavBar />
           <div className=" p-2">
             <SearchHandle /> {children}
             <Analytics />

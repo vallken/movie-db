@@ -2,7 +2,6 @@ import { searchDrama } from '@/src/lib/api-lib'
 import Link from 'next/link';
 import Pagination from '@/src/lib/utilities/Pagination';
 import { cleanUrl } from '@/src/lib/utilities/cleanUrl';
-import CloudinaryImage from '@/src/components/CdnImage';
 
 export default async function Page({ params, searchParams }) {
   const keyword = params.keyword;
@@ -22,7 +21,7 @@ export default async function Page({ params, searchParams }) {
       <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
         {posts.map((movie) => {
           const defaultImage = movie.image
-            ? `${movie.cloudinaryId}`
+            ? `${movie.image}`
             : "https://placehold.co/400x600.png";
           return (
             <Link
@@ -30,7 +29,7 @@ export default async function Page({ params, searchParams }) {
               key={movie.title}
               className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
             >
-              <CloudinaryImage
+              <img
                 src={defaultImage}
                 alt={movie.title}
                 width={200}

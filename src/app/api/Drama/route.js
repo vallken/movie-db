@@ -12,11 +12,11 @@ export const GET = async (req) => {
     const limit = 24;
     const skip = (page - 1) * limit;
 
-    const totalDrama = await Drama.countDocuments({ title: { $exists: true } });
+    const totalDrama = await Drama.countDocuments({ title: { $exists: true } }, {title: 1, image: 1, _id: 1});
     const totalPages = Math.ceil(totalDrama / limit);
 
     const links = await Drama.find({})
-      .select("-__v")
+      .select("title image _id")
       .skip(skip)
       .limit(limit)
       .lean();

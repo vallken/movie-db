@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import CloudinaryImage from "@/src/components/CdnImage";
 import VideoPlayer from "@/src/components/LazyFrame";
 
 const DynamicDisqusComments = dynamic(
@@ -35,8 +34,8 @@ const DramaDetail = ({ posts }) => {
         <div className="">
           <section>
             <div className="md:max-w-90 md:mx-auto">
-              <CloudinaryImage
-                src={posts.cloudinaryId}
+              <img
+                src={posts.image}
                 alt={posts.title}
                 width={300}
                 height={400}
