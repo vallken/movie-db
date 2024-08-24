@@ -96,14 +96,14 @@ const MovieDetail = ({ movie }) => {
                           className="btn btn-active w-auto"
                           onClick={() => handleStreamingClick(detail.link)}
                         >
-                          Streaming
+                          {detail.provider.replace("FileLion", "PC").replace("Streaming", "HP")}
                         </button>
                       ))}
                   </div>
                   {selectedLink && (
                     <div className="p-4">
                       <div className="mt-2">
-                        <VideoPlayer src={selectedLink} />
+                        <VideoPlayer src={selectedLink}/>
                       </div>
                     </div>
                   )}
