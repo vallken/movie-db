@@ -58,6 +58,3 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 Untuk pertanyaan lebih lanjut, Anda dapat menghubungi pemilik repositori ini melalui [GitHub Issues](https://github.com/vallken/movie-db/issues).
 
----
-
-Anda dapat menyesuaikan README ini sesuai dengan kebutuhan Anda.
