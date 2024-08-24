@@ -1,12 +1,15 @@
-import { getMovies } from "@/src/lib/api-lib";
+import { getMovies, searchMovie } from "@/src/lib/api-lib";
 import Link from "next/link";
 import Pagination from "@/src/lib/utilities/Pagination";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
 
 export default async function Page({ searchParams }) {
   const page = parseInt(searchParams.page, 10) || 1;
+  const search = searchParams.search || "";
 
-  const result = await getMovies(page);
+  const result = search 
+    ? await searchMovie(search, page) 
+    : await getMovies(page); 
 
   if (result.error) {
     return (
@@ -45,7 +48,7 @@ export default async function Page({ searchParams }) {
         })}
       </div>
       <div className="flex justify-center items-center gap-2">
-        <Pagination page={page} totalPages={totalPages} />
+        <Pagination page={page} totalPages={totalPages} search={search}/>
       </div>
     </div>
   );

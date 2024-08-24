@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function Pagination({ page, totalPages }) {
+export default function Pagination({ page, totalPages, search }) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(parseInt(page, 10));
   const [isMobile, setIsMobile] = useState(false);
@@ -12,8 +12,8 @@ export default function Pagination({ page, totalPages }) {
       setIsMobile(window.innerWidth <= 768);
     };
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const scrollTop = () => {
@@ -21,7 +21,8 @@ export default function Pagination({ page, totalPages }) {
   };
 
   const handlePageChange = (newPage) => {
-    router.push(`?page=${newPage}`);
+    const searchParam = search ? `?search=${search}&page=${newPage}` : `page=${newPage}`;
+    router.push(`${searchParam}`);
     setCurrentPage(newPage);
     scrollTop();
   };
@@ -39,22 +40,22 @@ export default function Pagination({ page, totalPages }) {
         for (let i = 1; i <= maxVisiblePages - 1; i++) {
           pageNumbers.push(i);
         }
-        pageNumbers.push('...');
+        pageNumbers.push("...");
         pageNumbers.push(totalPages);
       } else if (currentPage >= totalPages - 1) {
         pageNumbers.push(1);
-        pageNumbers.push('...');
+        pageNumbers.push("...");
         for (let i = totalPages - (maxVisiblePages - 2); i <= totalPages; i++) {
           pageNumbers.push(i);
         }
       } else {
         pageNumbers.push(1);
-        pageNumbers.push('...');
+        pageNumbers.push("...");
         pageNumbers.push(currentPage);
         if (!isMobile) {
           pageNumbers.push(currentPage + 1);
         }
-        pageNumbers.push('...');
+        pageNumbers.push("...");
         pageNumbers.push(totalPages);
       }
     }
@@ -66,7 +67,9 @@ export default function Pagination({ page, totalPages }) {
     <div className="join flex flex-wrap justify-center items-center my-4 gap-1">
       <button
         className={`join-item btn btn-sm sm:btn-md btn-primary text-white rounded-md transition-all ${
-          currentPage <= 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-indigo-700"
+          currentPage <= 1
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-indigo-700"
         }`}
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -76,11 +79,11 @@ export default function Pagination({ page, totalPages }) {
       {generatePageNumbers().map((pageNum, index) => (
         <button
           key={index}
-          className={`join-item btn btn-sm sm:btn-md ${pageNum === currentPage ? 'btn-active' : ''} ${
-            pageNum === '...' ? 'btn-disabled' : ''
-          }`}
-          onClick={() => pageNum !== '...' && handlePageChange(pageNum)}
-          disabled={pageNum === '...'}
+          className={`join-item btn btn-sm sm:btn-md ${
+            pageNum === currentPage ? "btn-active" : ""
+          } ${pageNum === "..." ? "btn-disabled" : ""}`}
+          onClick={() => pageNum !== "..." && handlePageChange(pageNum)}
+          disabled={pageNum === "..."}
         >
           {pageNum}
         </button>

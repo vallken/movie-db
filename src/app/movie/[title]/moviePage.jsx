@@ -72,7 +72,7 @@ const MovieDetail = ({ movie }) => {
                     </summary>
                     <ul className="menu dropdown-content bg-base-200 rounded-box z-[1] w-full md:w-52 p-2 shadow mt-1 h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-300 absolute">
                       {movie.details
-                        .filter((detail) => detail.provider !==("Streaming" || "FileLion"))
+                        .filter((detail) => detail.provider !== 'Streaming' && detail.provider !== 'FileLion')
                         .map((detail) => (
                           <li key={detail._id}>
                             <Link
