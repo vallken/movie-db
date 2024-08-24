@@ -96,7 +96,7 @@ const MovieDetail = ({ movie }) => {
                           className="btn btn-active w-auto"
                           onClick={() => handleStreamingClick(detail.link)}
                         >
-                          {detail.provider.replace("FileLion", "PC").replace("Streaming", "HP")}
+                          {detail.provider.replace("FileLion", "Desktop").replace("Streaming", "Mobile")}
                         </button>
                       ))}
                   </div>

@@ -23,7 +23,7 @@ const VideoPlayer = ({ src }) => {
       <iframe
         src={src}
         width="100%"
-        height="315"
+        height="auto"
         frameBorder="0"
         allowFullScreen
         allow="autoplay; fullscreen; picture-in-picture"
