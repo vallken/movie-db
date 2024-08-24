@@ -1,6 +1,3 @@
-Berikut adalah contoh README untuk repo GitHub Anda yang berisi aplikasi pencarian film menggunakan TMDB API:
-
----
 
 # Movie DB
 
