@@ -15,7 +15,6 @@ Movie DB adalah aplikasi web yang memungkinkan pengguna untuk mencari informasi 
 - **Next.js**: Framework React untuk rendering sisi server dan membangun aplikasi web.
 - **Tailwind CSS**: Framework CSS untuk mendesain antarmuka pengguna.
 - **MongoDB**: Database NoSQL untuk menyimpan data.
-- **TMDB API**: API eksternal untuk mendapatkan data film.
 
 ## Instalasi
 
