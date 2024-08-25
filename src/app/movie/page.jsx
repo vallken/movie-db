@@ -2,14 +2,15 @@ import { getMovies, searchMovie } from "@/src/lib/api-lib";
 import Link from "next/link";
 import Pagination from "@/src/lib/utilities/Pagination";
 import { cleanUrl } from "@/src/lib/utilities/cleanUrl";
+import EmptyState from "@/src/components/EmptyState";
 
 export default async function Page({ searchParams }) {
   const page = parseInt(searchParams.page, 10) || 1;
   const search = searchParams.search || "";
 
-  const result = search 
-    ? await searchMovie(search, page) 
-    : await getMovies(page); 
+  const result = search
+    ? await searchMovie(search, page)
+    : await getMovies(page);
 
   if (result.error) {
     return (
@@ -18,6 +19,10 @@ export default async function Page({ searchParams }) {
   }
 
   const posts = result.data;
+
+  if (posts.length === 0) {
+    return <EmptyState message="No posts found" />;
+  }
   const totalPages = result.totalPages;
 
   return (
@@ -39,7 +44,7 @@ export default async function Page({ searchParams }) {
                 width={200}
                 height={200}
                 className="w-full max-h-64 shadow-xl transform transition-transform duration-500 hover:scale-105"
-               />
+              />
               <h3 className="font-bold md:text-xl dark:text-gray-200 text-lg p-4">
                 {movie.title}
               </h3>
@@ -48,7 +53,7 @@ export default async function Page({ searchParams }) {
         })}
       </div>
       <div className="flex justify-center items-center gap-2">
-        <Pagination page={page} totalPages={totalPages} search={search}/>
+        <Pagination page={page} totalPages={totalPages} search={search} />
       </div>
     </div>
   );

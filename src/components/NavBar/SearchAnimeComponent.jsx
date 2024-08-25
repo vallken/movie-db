@@ -1,33 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
 export const SearchAnimeComponent = () => {
     const searchRef = useRef(null);
     const router = useRouter();
 
-    const handleSearch = async () => {
+    const handleSearch = async (e) => {
+        if (e.key === "Enter" || e.type === "click") {
+            e.preventDefault();
             const searchValue = searchRef.current?.value;
             if (searchValue) {
                 router.push(`/anime?search=${encodeURIComponent(searchValue)}`);
             }
-    };
-
-    useEffect(() => {
-        const inputElement = searchRef.current;
-        if (inputElement) {
-            const handleInputChange = () => {
-                handleSearch();
-            };
-
-            inputElement.addEventListener("input", handleInputChange);
-
-            return () => {
-                inputElement.removeEventListener("input", handleInputChange);
-            };
         }
-    }, [router]);
+    };
 
     return (
         <div className="flex items-center space-x-2">

@@ -9,10 +9,10 @@ const EmptyState = ({
   actionLink = "/"
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] bg-gray-100 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col items-center justify-center min-h-[50vh] bg-gray-200 dark:bg-gray-800 px-4 py-12 sm:px-6 lg:px-8">
       <div className="text-center">
         <div className="text-6xl mb-4">{icon}</div>
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-200 sm:text-3xl mb-2">
           {message}
         </h2>
         <p className="mt-1 text-sm text-gray-500 mb-6">
