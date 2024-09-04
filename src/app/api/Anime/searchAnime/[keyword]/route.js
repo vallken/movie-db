@@ -22,7 +22,7 @@ export async function GET(req, { params }) {
     const totalMovies = await AnimeModel.countDocuments({
       title: { $regex: titleRegex },
     });
-    const movies = await AnimeModel.find({ title: { $regex: titleRegex } }, {title: 1, images: 1, _id: 1})
+    const movies = await AnimeModel.find({ title: { $regex: titleRegex } }, {title: 1, images: 1, _id: 1, status: 1})
       .select(" -__v")
       .skip(skip)
       .limit(limit)

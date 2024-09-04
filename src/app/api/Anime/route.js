@@ -18,8 +18,9 @@ export const GET = async (req) => {
     });
     const totalPages = Math.ceil(totalMovies / limit);
 
-    const links = await AnimeModel.find({}, {title: 1, images: 1, _id: 1})
+    const links = await AnimeModel.find({}, {title: 1, images: 1, _id: 1, status: 1})
       .select("-__v")
+      .sort({ _id: -1 })
       .skip(skip)
       .limit(limit)
       .lean();

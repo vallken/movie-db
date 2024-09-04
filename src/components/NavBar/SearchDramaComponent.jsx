@@ -17,21 +17,6 @@ export const SearchDramaComponent = () => {
         }
     };
 
-    useEffect(() => {
-        const inputElement = searchRef.current;
-        if (inputElement) {
-            const handleInputChange = () => {
-                handleSearch();
-            };
-
-            inputElement.addEventListener("input", handleInputChange);
-
-            return () => {
-                inputElement.removeEventListener("input", handleInputChange);
-            };
-        }
-    }, [router]);
-
     return (
         <div className="flex items-center space-x-2">
             <input

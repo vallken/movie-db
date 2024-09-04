@@ -17,8 +17,9 @@ export const GET = async (req) => {
     });
     const totalPages = Math.ceil(totalMovies / limit);
 
-    const links = await Movie.find({})
-      .select("title image _id")
+    const links = await Movie.find({},)
+      .select("title image _id data.genre")
+      .sort({ _id: -1 })
       .skip(skip)
       .limit(limit)
       .lean();

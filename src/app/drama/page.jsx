@@ -12,6 +12,20 @@ export default async function Page({ searchParams }) {
     ? await searchDrama(search, page)
     : await getDramas(page);
 
+  if (result.error) {
+    return (
+      <div className="hero min-h-screen">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-4xl md:text-5xl font-bold text-error">
+              {result.error}
+            </h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const posts = result.data;
   if (posts.length === 0) {
     return <EmptyState message="No posts found" />;
@@ -20,8 +34,8 @@ export default async function Page({ searchParams }) {
   const totalPages = result.totalPages;
 
   return (
-    <div className="bg-gray-200 dark:bg-gray-800 p-2">
-      <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
+    <div className="container mx-auto px-4 py-8 min-h-screen">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {posts?.map((movie) => {
           const defaultImage = movie.image
             ? `${movie.image}`
@@ -30,23 +44,30 @@ export default async function Page({ searchParams }) {
             <Link
               href={`/drama/${cleanUrl(movie.title)}?id=${movie._id}`}
               key={movie.title}
-              className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
+              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <img
-                src={defaultImage}
-                alt={movie.title}
-                width={200}
-                height={200}
-                className="w-full max-h-64 shadow-xl transform transition-transform duration-500 hover:scale-105"
-              />
-              <h3 className="font-bold md:text-xl dark:text-gray-200 text-lg p-4">
-                {movie.title.split("Season")[0].trim()}
-              </h3>
+              <figure className="px-2 pt-2 md:px-4 md:pt-4">
+                <img
+                  src={defaultImage}
+                  alt={movie.title}
+                  width={200}
+                  height={200}
+                  className="rounded-xl object-cover h-48 sm:h-56 md:h-64 w-full"
+                />
+              </figure>
+              <div className="card-body p-2 md:p-4">
+                <h2 className="card-title text-sm sm:text-base md:text-lg font-bold truncate">
+                  {movie.title.split("Season")[0].trim()}
+                </h2>
+                <p className="text-xs sm:text-sm text-base-content/70 truncate">
+                  {movie.data?.genre || "Genre not available"}
+                </p>
+              </div>
             </Link>
           );
         })}
       </div>
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex justify-center items-center mt-8">
         <Pagination page={page} totalPages={totalPages} search={search} />
       </div>
     </div>

@@ -15,7 +15,15 @@ export default async function Page({ searchParams }) {
 
   if (result.error) {
     return (
-      <h1 className="text-3xl font-bold text-color-primary">{result.error}</h1>
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-4xl md:text-5xl font-bold text-error">
+              {result.error}
+            </h1>
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -26,8 +34,8 @@ export default async function Page({ searchParams }) {
   const totalPages = result.totalPages;
 
   return (
-    <div className="bg-gray-200 p-2">
-      <div className="grid md:grid-cols-4 grid-cols-3 gap-4 px-2 mt-2">
+    <div className="container mx-auto px-4 py-8 ">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {posts?.map((anime) => {
           const defaultImage = anime.images?.webp
             ? `${anime.images?.webp}`
@@ -36,27 +44,34 @@ export default async function Page({ searchParams }) {
             <Link
               href={`/anime/${cleanUrl(anime.title)}?id=${anime._id}`}
               key={anime.id}
-              className="cursor-pointer text-slate-900 hover:text-blue-800 transition-all"
+              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <img
-                src={defaultImage}
-                alt={anime.title}
-                width={200}
-                height={200}
-                className="w-full max-h-64 shadow-xl transform transition-transform duration-500 hover:scale-105"
-              />
-              <h3 className="font-bold md:text-xl text-sm p-4">
-                {anime.title.replace(
-                  /(Batch\s*Subtitle\s*Indonesia|BD\s*Subtitle\s*Indonesia|Subtitle\s*Indonesia|BD\s*Batch\s*Subtitle\s*Indonesia|BD\s*Batch\s*Subtitle\s*Indonesia)/g,
-                  ""
-                )}
-              </h3>
+              <figure className="px-2 pt-2 md:px-4 md:pt-4">
+                <img
+                  src={defaultImage}
+                  alt={anime.title}
+                  width={200}
+                  height={200}
+                  className="rounded-xl object-cover h-48 sm:h-56 md:h-64 w-full"
+                />
+              </figure>
+              <div className="card-body p-2 md:p-4">
+                <h2 className="card-title text-sm sm:text-base md:text-lg font-bold truncate">
+                  {anime.title.replace(
+                    /(Batch\s*Subtitle\s*Indonesia|BD\s*Subtitle\s*Indonesia|Subtitle\s*Indonesia|BD\s*Batch\s*Subtitle\s*Indonesia|BD\s*Batch\s*Subtitle\s*Indonesia)/g,
+                    ""
+                  )}
+                </h2>
+                <p className="text-xs sm:text-sm text-base-content/70 truncate">
+                {anime.status || "status not available"}
+              </p>
+              </div>
             </Link>
           );
         })}
       </div>
-      <div className="flex justify-center items-center gap-2">
-        <Pagination page={page} totalPages={totalPages} search={search}/>
+      <div className="flex justify-center items-center mt-8">
+        <Pagination page={page} totalPages={totalPages} search={search} />
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export default function Pagination({ page, totalPages, search }) {
   };
 
   const handlePageChange = (newPage) => {
-    const searchParam = search ? `?search=${search}&page=${newPage}` : `page=${newPage}`;
+    const searchParam = search ? `?search=${search}&page=${newPage}` : `?page=${newPage}`;
     router.push(`${searchParam}`);
     setCurrentPage(newPage);
     scrollTop();
@@ -51,6 +51,7 @@ export default function Pagination({ page, totalPages, search }) {
       } else {
         pageNumbers.push(1);
         pageNumbers.push("...");
+        pageNumbers.push(currentPage - 1);
         pageNumbers.push(currentPage);
         if (!isMobile) {
           pageNumbers.push(currentPage + 1);
@@ -64,12 +65,12 @@ export default function Pagination({ page, totalPages, search }) {
   };
 
   return (
-    <div className="join flex flex-wrap justify-center items-center my-4 gap-1">
+    <div className="flex flex-wrap justify-center items-center my-8 gap-2">
       <button
-        className={`join-item btn btn-sm sm:btn-md btn-primary text-white rounded-md transition-all ${
+        className={`btn btn-circle btn-sm md:btn-md ${
           currentPage <= 1
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-indigo-700"
+            ? "btn-disabled"
+            : "btn-primary"
         }`}
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -79,9 +80,13 @@ export default function Pagination({ page, totalPages, search }) {
       {generatePageNumbers().map((pageNum, index) => (
         <button
           key={index}
-          className={`join-item btn btn-sm sm:btn-md ${
-            pageNum === currentPage ? "btn-active" : ""
-          } ${pageNum === "..." ? "btn-disabled" : ""}`}
+          className={`btn btn-sm md:btn-md ${
+            pageNum === currentPage 
+              ? "btn-primary" 
+              : pageNum === "..." 
+                ? "btn-disabled" 
+                : "btn-ghost hover:btn-primary"
+          }`}
           onClick={() => pageNum !== "..." && handlePageChange(pageNum)}
           disabled={pageNum === "..."}
         >
@@ -89,10 +94,10 @@ export default function Pagination({ page, totalPages, search }) {
         </button>
       ))}
       <button
-        className={`join-item btn btn-sm sm:btn-md btn-primary text-white rounded-md transition-all ${
+        className={`btn btn-circle btn-sm md:btn-md ${
           currentPage >= totalPages
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-indigo-700"
+            ? "btn-disabled"
+            : "btn-primary"
         }`}
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}

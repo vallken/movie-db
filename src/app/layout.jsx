@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <div className="bg-gray-200 dark:bg-gray-800 min-h-screen relative">
+        <div className="bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900 min-h-screen">
             <NavBar />
           <div className=" p-2">
             <SearchHandle /> {children}

@@ -16,7 +16,8 @@ export const GET = async (req) => {
     const totalPages = Math.ceil(totalDrama / limit);
 
     const links = await Drama.find({})
-      .select("title image _id")
+      .select("title image _id data.genre")
+      .sort({ _id: -1 })
       .skip(skip)
       .limit(limit)
       .lean();
