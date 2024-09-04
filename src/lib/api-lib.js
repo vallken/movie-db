@@ -5,7 +5,7 @@ export async function getMovieData(id) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/MovieData/${id}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     const result = await response.json();
@@ -20,7 +20,7 @@ export const searchMovie = async (keyword, page) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/searchMovie/${keyword}?page=${page}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     if (!response.ok) {
@@ -37,7 +37,7 @@ export async function getMovies(page) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Movie/?page=${page}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     if (!response.ok) {
@@ -56,7 +56,7 @@ export async function getDramaData(id) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/DramaData/${id}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     const result = await response.json();
@@ -71,7 +71,7 @@ export const searchDrama = async (keyword, page) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/searchDrama/${keyword}?page=${page}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     if (!response.ok) {
@@ -88,7 +88,7 @@ export async function getDramas(page) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Drama/?page=${page}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     if (!response.ok) {
@@ -107,7 +107,7 @@ export const getAnimeData = async (id) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/AnimeData/${id}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     const result = await response.json();
@@ -122,7 +122,7 @@ export async function getAnime(page) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/?page=${page}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     if (!response.ok) {
@@ -139,7 +139,7 @@ export const searchAnime = async (Keyword, page) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/Anime/searchAnime/${Keyword}?page=${page}`,
       {
-        cache: "force-cache",
+        cache: "reload",
       }
     );
     if (!response.ok) {
